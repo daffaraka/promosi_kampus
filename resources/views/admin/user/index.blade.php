@@ -1,5 +1,8 @@
 @extends('admin.layouts.adminlayout')
-
+@section('script_head')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endsection
 @section('content')
     <!-- Default box -->
     <div class="container-fluid py-4">

@@ -88,6 +88,17 @@ class AkunController extends Controller
         return view('admin.user.ubahUser', $data);
     }
 
+    public function hapusUser($id)
+    {
+        $usr = User::findOrFail($id);
+        if ($usr->user_image && file_exists(public_path() . $usr->user_image)) {
+            unlink(public_path() . $usr->user_image);
+        }
+        $usr->delete($id);
+        return response()->json([
+            'msg' => 'Data yang dipilih telah dihapus'
+        ]);
+    }
     public function dataTable(Request $request)
     {
         $totalFilteredRecord = $totalDataRecord = $draw_val = "";
