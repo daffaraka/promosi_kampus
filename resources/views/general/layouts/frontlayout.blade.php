@@ -13,13 +13,20 @@
     <link href="{{ asset('admin/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin/css/nucleo-svg.css') }}" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script> --}}
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte3/plugins/fontawesome-free/css/all.min.css') }}">
+
     <link href="{{ asset('admin/css/nucleo-svg.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('admin/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <style>
+        .min-vh-15 {
+            min-height: 15vh !important;
+        }
+    </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -27,7 +34,7 @@
         <div class="row">
             <div class="col-12">
                 <!-- Navbar -->
-                @if (empty(Request::segment(2)))
+                @if (empty(Request::segment(2)) || Request::segment(2) == 4)
                     <nav
                         class="navbar navbar-expand-lg blur blur-rounded navbar-light bg-gradient-primary top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                         <div class="container-fluid pe-0">
@@ -47,21 +54,24 @@
                                 <ul class="navbar-nav mx-auto ms-xl-auto me-xl-7">
 
                                 </ul>
-                                <li class="nav-item d-flex align-items-center">
+                                @if (Request::segment(1) == 'quisioner')
+                                    <li class="nav-item d-flex align-items-center">
+                                        <a class="nav-link me-2 bg-gradient-dark text-light btn btn-md btn-round mb-0"
+                                            href="{{ url('/') }}">
+                                            <i class="fas fa-key opacity-6  me-1"></i>
+                                            Sign In
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="nav-item d-flex align-items-center">
+                                        <a class="nav-link me-2 bg-gradient-light text-dark  btn btn-md btn-round mb-0"
+                                            href="{{ url('/quisioner') }}">
+                                            <i class="fas fa-edit opacity-6  me-1"></i>
 
-
-                                    <a class="nav-link me-2 bg-gradient-light text-dark  btn btn-md btn-round mb-0"
-                                        href="http://127.0.0.1:8000/quisioner">
-                                        Quisioner
-                                    </a>
-                                </li>
-                                <li class="nav-item d-flex align-items-center">
-                                    <a class="nav-link me-2 bg-gradient-dark text-light btn btn-md btn-round mb-0"
-                                        href="../pages/sign-in.html">
-                                        <i class="fas fa-key opacity-6  me-1"></i>
-                                        Sign In
-                                    </a>
-                                </li>
+                                            Quisioner
+                                        </a>
+                                    </li>
+                                @endif
                             </div>
                         </div>
                     </nav>
@@ -147,6 +157,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('admin/js/soft-ui-dashboard.min.js?v=1.0.7') }}"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     --}}
+    <script src="{{ asset('vendor/adminlte3/plugins/jquery/jquery.min.js') }}"></script>
+
+    @yield('script_footer')
 </body>
 
 </html>

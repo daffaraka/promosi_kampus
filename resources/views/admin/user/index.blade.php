@@ -16,6 +16,14 @@
                                 <a href="{{ route('user.add') }}" class="btn btn-success"> + Tambah Akun</a>
 
                             </h3>
+                            @if (session('status'))
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close btn btn-danger" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                             <div class="card-tools col-6 text-end">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>

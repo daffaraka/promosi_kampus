@@ -5,59 +5,9 @@
 
     <section>
 
-        <div class="page-header min-vh-60">
+        <div class="page-header min-vh-75 ">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 d-flex flex-column mx-auto">
-                        <div class="card  mt-1">
-                            <div class="card-header pb-0 text-left bg-primary">
-                                @if (Session::get('status') == 'error')
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ Session::get('message') }}
-                                    </div>
-                                @endif
-                                <h3 class="font-weight-bolder text-light ">Kriteria Promosi </h3>
-                            </div>
-
-
-                            <div class="card-body">
-                                <ol class="mb-0">Terdapat 4 Kriteria Promosi Di Politeknik Negeri Subang diantaranya
-                                    adalah sebagai berikut:
-
-                                    <li>Jangkauan</li>
-                                    <li>Menarik</li>
-                                    <li>Informatif</li>
-                                    <li>Efektifitas</li>
-
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container position-sticky z-index-sticky top-0">
-            <div class="row">
-                <div class="col-12">
-                    <!-- Navbar -->
-                    <nav
-                        class="navbar navbar-expand-lg blur blur-rounded navbar-primary bg-primary  top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
-                        <div class="container-fluid pe-0">
-                            <h6>Kriteria manakah
-                                yang menurut anda lebih penting dalam menentukan media promosi?</h6>
-                        </div>
-                    </nav>
-
-                    <!-- End Navbar -->
-                </div>
-            </div>
-        </div>
-
-        <div class="min-vh-15"></div>
-        <div class="page-header min-vh-75">
-            <div class="container">
-                <div class="row">
+                <div class="row pt-5">
                     <div class="col-xl-12 col-lg-12 col-md-12 d-flex flex-column mx-auto">
 
                         {{-- 1 --}}
@@ -68,12 +18,15 @@
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         <thead class="text-center bg-primary">
-                                            <h6>Perbandingan Antara:</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
+                                            <h6>Pada Kriteria Jangkauan, Subkriteria manakah yang menurut anda lebih penting
+                                                dalam menentukan media
+                                                promosi?</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
                                         </thead>
                                         <tbody class="text-center">
                                             <div class="row form-group col-12">
 
-                                                <label for="p-1" class="form-label col-12 col-lg-2">Jangkauan
+                                                <label for="p-1" class="form-label col-12 col-lg-2">Wilayah Dalam
+                                                    Subang
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-1" class="col-1 col-lg-1">0</output>
@@ -85,7 +38,7 @@
                                                 </div>
                                             </div>
                                             <div class="row form-group col-12">
-                                                <label for="p-2" class="form-label col-12 col-lg-2">Menarik
+                                                <label for="p-2" class="form-label col-12 col-lg-2">Wilayah Luar Subang
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-2" class="col-1 col-lg-1">0</output>
@@ -108,12 +61,14 @@
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         <thead class="text-center">
-                                            <h6>Perbandingan Antara:</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
+                                            <h6>Pada Kriteria Menarik, Subkriteria manakah yang menurut anda lebih penting
+                                                dalam menentukan media
+                                                promosi?</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
                                         </thead>
                                         <tbody class="text-center">
                                             <div class="row form-group col-12">
 
-                                                <label for="p-3" class="form-label col-12 col-lg-2">Jangkauan
+                                                <label for="p-3" class="form-label col-12 col-lg-2">Desain
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-3" class="col-1 col-lg-1">0</output>
@@ -125,7 +80,7 @@
                                                 </div>
                                             </div>
                                             <div class="row form-group col-12">
-                                                <label for="p-4" class="form-label col-12 col-lg-2">Informatif
+                                                <label for="p-4" class="form-label col-12 col-lg-2">Kreativitas
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-4" class="col-1 col-lg-1">0</output>
@@ -149,12 +104,16 @@
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         <thead class="text-center">
-                                            <h6>Perbandingan Antara:</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
+                                            <h6>Pada Kriteria Informatif, Subkriteria manakah yang menurut anda lebih
+                                                penting
+                                                dalam menentukan media
+                                                promosi?</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
                                         </thead>
                                         <tbody class="text-center">
                                             <div class="row form-group col-12">
 
-                                                <label for="p-5" class="form-label col-12 col-lg-2">Jangkauan
+                                                <label for="p-5" class="form-label col-12 col-lg-2">Informasi Yang
+                                                    Jelas
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-5" class="col-1 col-lg-1">0</output>
@@ -166,7 +125,8 @@
                                                 </div>
                                             </div>
                                             <div class="row form-group col-12">
-                                                <label for="p-6" class="form-label col-12 col-lg-2">Efektifitas
+                                                <label for="p-6" class="form-label col-12 col-lg-2">Kejelasan
+                                                    Informasi
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-6" class="col-1 col-lg-1">0</output>
@@ -189,12 +149,15 @@
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         <thead class="text-center">
-                                            <h6>Perbandingan Antara:</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
+                                            <h6>Pada Kriteria Efektifitas, Subkriteria manakah yang menurut anda lebih
+                                                penting
+                                                dalam menentukan media
+                                                promosi?</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
                                         </thead>
                                         <tbody class="text-center">
                                             <div class="row form-group col-12">
 
-                                                <label for="p-7" class="form-label col-12 col-lg-2">Menarik
+                                                <label for="p-7" class="form-label col-12 col-lg-2">Tepat Sasaran
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-7" class="col-1 col-lg-1">0</output>
@@ -206,7 +169,7 @@
                                                 </div>
                                             </div>
                                             <div class="row form-group col-12">
-                                                <label for="p-8" class="form-label col-12 col-lg-2">Informatif
+                                                <label for="p-8" class="form-label col-12 col-lg-2">Mudah Dilakukan
                                                 </label>
                                                 <div class="row form-group col-12 col-lg-10">
                                                     <output id="s-8" class="col-1 col-lg-1">0</output>
@@ -222,91 +185,17 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- 5 --}}
-                        <div class="card m-2">
 
-                            <div class="card-body">
-                                <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
-                                        <thead class="text-center">
-                                            <h6>Perbandingan Antara:</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
-                                        </thead>
-                                        <tbody class="text-center">
-                                            <div class="row form-group col-12">
-
-                                                <label for="p-9" class="form-label col-12 col-lg-2">Menarik
-                                                </label>
-                                                <div class="row form-group col-12 col-lg-10">
-                                                    <output id="s-9" class="col-1 col-lg-1">0</output>
-                                                    <input type="range" value="0" class="form-range w-85 "
-                                                        min="0" max="9" id="p-9" data-p="9"
-                                                        data-k="10"
-                                                        oninput="this.previousElementSibling.value = this.value"
-                                                        onchange="gets(this)">
-                                                </div>
-                                            </div>
-                                            <div class="row form-group col-12">
-                                                <label for="p-10" class="form-label col-12 col-lg-2">Efektifitas
-                                                </label>
-                                                <div class="row form-group col-12 col-lg-10">
-                                                    <output id="s-10" class="col-1 col-lg-1">0</output>
-                                                    <input type="range" value="0" class="form-range w-85 "
-                                                        min="0" max="9" id="p-10" data-p="10"
-                                                        data-k="9"
-                                                        oninput="this.previousElementSibling.value = this.value"
-                                                        onchange="gets(this)">
-                                                </div>
-                                            </div>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- 5 --}}
-                        <div class="card m-2">
-
-                            <div class="card-body">
-                                <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
-                                        <thead class="text-center">
-                                            <h6>Perbandingan Antara:</h6> {{-- <h6>Berdasarkan Pertanyaan diatas, Lebih penting mana</h6> --}}
-                                        </thead>
-                                        <tbody class="text-center">
-                                            <div class="row form-group col-12">
-
-                                                <label for="p-11" class="form-label col-12 col-lg-2">Informatif
-                                                </label>
-                                                <div class="row form-group col-12 col-lg-10">
-                                                    <output id="s-11" class="col-1 col-lg-1">0</output>
-                                                    <input type="range" value="0" class="form-range w-85 "
-                                                        min="0" max="11" id="p-11" data-p="11"
-                                                        data-k="12"
-                                                        oninput="this.previousElementSibling.value = this.value"
-                                                        onchange="gets(this)">
-                                                </div>
-                                            </div>
-                                            <div class="row form-group col-12">
-                                                <label for="p-12" class="form-label col-12 col-lg-2">Efektifitas
-                                                </label>
-                                                <div class="row form-group col-12 col-lg-10">
-                                                    <output id="s-12" class="col-1 col-lg-1">0</output>
-                                                    <input type="range" value="0" class="form-range w-85 "
-                                                        min="0" max="9" id="p-12" data-p="12"
-                                                        data-k="11"
-                                                        oninput="this.previousElementSibling.value = this.value"
-                                                        onchange="gets(this)">
-                                                </div>
-                                            </div>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-xl-12 col-lg-12 col-md-12 d-flex justify-content-end ">
+                    <div class="col-xl-12 col-lg-12 col-md-12 d-flex justify-content-between ">
                         <div class="col-lg-1 col-3">
                             <a type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0"
-                                href="{{ url('/quisioner/2') }}">Next</a>
+                                href="{{ url('/quisioner/1') }}">Back</a>
+
+                        </div>
+                        <div class="col-lg-1 col-3">
+                            <a type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0"
+                                href="{{ url('/quisioner/4') }}">Next</a>
 
                         </div>
                     </div>

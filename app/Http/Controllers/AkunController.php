@@ -46,7 +46,7 @@ class AkunController extends Controller
                 'password' => Hash::make($request->password),
                 'user_image' => $img
             ]);
-            return redirect()->route('user.add')->with('status', 'Data telah tersimpan di database');
+            return redirect()->route('user.user', $data)->with('status', 'Data telah tersimpan di database');
         }
         return view('admin.user.addUser', $data);
     }
@@ -199,7 +199,7 @@ class AkunController extends Controller
                 'password' => Hash::make($request->password),
                 'user_image' => $img
             ]);
-            return redirect()->route('akun.add')->with('status', 'Data telah tersimpan di database');
+            return redirect()->route('akun')->with('status', 'Data telah tersimpan di database');
         }
         return view('page.admin.akun.addAkun');
     }
