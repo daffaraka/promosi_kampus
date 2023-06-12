@@ -107,7 +107,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a class="dropdown-item border-radius-md" href="{{ url('kuisioner') }}">
+                        <a class="dropdown-item border-radius-md" href="{{ url('dashboard/admin/kuisioner') }}">
                             <div class="d-flex py-1">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">

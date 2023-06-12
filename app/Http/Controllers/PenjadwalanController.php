@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class QuisionerController extends Controller
+class PenjadwalanController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -20,7 +19,7 @@ class QuisionerController extends Controller
     public function index()
     {
 
-        $data['title'] = 'Data Quisioner';
-        return view('admin.quisioner.index', $data);
+        $data['title'] = 'Data Penjadwalan Kunjungan';
+        return view('admin.penjadwalan.index', $data);
     }
 }
