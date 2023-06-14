@@ -23,6 +23,16 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     @yield('script_head')
+
+    <script>
+        if (window.history.replaceState) {
+            window.addEventListener("pageshow", function(event) {
+                if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

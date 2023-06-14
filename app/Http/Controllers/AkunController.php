@@ -81,7 +81,7 @@ class AkunController extends Controller
                 'user_image' => $img
             ]);
             $data['id'] = $usr->id;
-            return redirect()->route('user.edit', $data)->with('status', 'Data telah tersimpan di database');
+            return redirect()->route('user.user', $data)->with('status', 'Data telah tersimpan di database');
         }
         $data['usr'] = $usr;
 

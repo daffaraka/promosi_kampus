@@ -34,8 +34,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body p-0 table table-responsive" style="margin: 20px">
-                        <table id="previewAkun" class="table table-striped table-bordered   display" style="width:100%">
+                    <div class="card-body p-0  table-responsive" style="margin: 20px">
+                        <table id="previewAkun" class="table table-striped table-bordered display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Pertanyaan</th>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuisionerController;
+use App\Http\Controllers\Schedule;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +17,6 @@ use App\Http\Controllers\QuisionerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    if (!empty(Session::get('auth')['email'])) {
-        return  redirect('dashboard/admin');
-    } else {
-        return view('general.home');
-    }
-})->name('login');
 
 Route::get('quisioner', function () {
     return view('general.quisioner.quisioner');
@@ -46,7 +39,19 @@ Route::get('/quisioner/4', function () {
 Route::get('/test', function () {
     return view('admin.dashboard');
 });
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+
+        if (!empty(Session::get('auth')['email'])) {
+            return  redirect('dashboard/admin');
+        } else {
+            return view('general.home');
+        }
+    })->name('login');
+});
 Auth::routes();
 
 Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function () {
@@ -124,14 +129,14 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
             Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
         });
-    Route::controller(PenjadwalanController::class)
-        ->prefix('penjadwalan')
-        ->as('penjadwalan.')
+    Route::controller(Schedule::class)
+        ->prefix('schedule')
+        ->as('schedule.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('showdata', 'dataTable')->name('dataTable');
-            Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
-            Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
-            Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
+            Route::match(['get', 'post'], 'tambah', 'tambahschedule')->name('add');
+            Route::match(['get', 'post'], '{id}/ubah', 'ubahschedule')->name('edit');
+            Route::delete('{id}/hapus', 'hapusschedule')->name('delete');
         });
 });

@@ -27,6 +27,15 @@
             min-height: 15vh !important;
         }
     </style>
+    <script>
+        if (window.history.replaceState) {
+            window.addEventListener("pageshow", function(event) {
+                if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -160,6 +169,7 @@
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      --}}
     <script src="{{ asset('vendor/adminlte3/plugins/jquery/jquery.min.js') }}"></script>
+
 
     @yield('script_footer')
 </body>

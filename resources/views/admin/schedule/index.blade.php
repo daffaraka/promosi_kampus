@@ -13,12 +13,13 @@
                         <div class="row">
 
                             <h3 class="card-title col-6">
-                                <a href="{{ route('user.add') }}" class="btn btn-success "> + Tambah Akun</a>
+                                <a href="{{ route('schedule.add') }}" class="btn btn-success"> + Tambah Penjadwalan</a>
+
                             </h3>
                             @if (session('status'))
-                                <div class="alert alert-success alert-dismissible ">
-                                    <button type="button" class="close btn btn-danger btn-close bg-danger"
-                                        data-dismiss="alert" aria-hidden="true">×</button>
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close btn  btn-close bg-danger" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
                                     <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
                                     {{ session('status') }}
                                 </div>
@@ -33,17 +34,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body p-0" style="margin: 20px">
-                        <table id="previewAkun" class="table table-striped table-bordered display" style="width:100%">
+                    <div class="card-body p-0  table-responsive" style="margin: 20px">
+                        <table id="previewSchedule" class="table table-striped table-bordered   display" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>No</th>
+                                    <th>PIC</th>
+                                    <th>Sekolah</th>
+                                    <th>Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+
+                            </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -65,11 +69,11 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#previewAkun').DataTable({
+            $('#previewSchedule').DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
-                    "url": "{{ route('akun.dataTable') }}",
+                    "url": "{{ route('schedule.dataTable') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": {
@@ -77,11 +81,13 @@
                     }
                 },
                 "columns": [{
-                    "data": "name"
+                    "data": "no"
                 }, {
-                    "data": "email"
+                    "data": "pic"
                 }, {
-                    "data": "role"
+                    "data": "school"
+                }, {
+                    "data": "date"
                 }, {
                     "data": "options"
                 }],
@@ -113,7 +119,7 @@
             });
 
             // hapus data
-            $('#previewAkun').on('click', '.hapusData', function() {
+            $('#previewSchedule').on('click', '.hapusData', function() {
                 var id = $(this).data("id");
                 var url = $(this).data("url");
                 Swal
@@ -140,7 +146,7 @@
                                 success: function(response) {
                                     // console.log();
                                     Swal.fire('Terhapus!', response.msg, 'success');
-                                    $('#previewAkun').DataTable().ajax.reload();
+                                    $('#previewSchedule').DataTable().ajax.reload();
                                 }
                             });
                         }

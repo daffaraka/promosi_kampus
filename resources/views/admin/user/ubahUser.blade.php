@@ -6,7 +6,7 @@
     <section class="content">
         @if (session('status'))
             <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <button type="button" class="close btn btn-close bg-danger" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
                 {{ session('status') }}
             </div>
@@ -49,7 +49,8 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         @if ($usr->user_image)
-                                            <img class="elevation-3" id="prevImg" src="{{ $usr->user_image }}"
+                                            <img class="elevation-3" id="prevImg"
+                                                src="{{ asset('vendor/adminlte3/img/' . $usr->user_image) }}"
                                                 width="150px" />
                                         @else
                                             <img class="elevation-3" id="prevImg"
