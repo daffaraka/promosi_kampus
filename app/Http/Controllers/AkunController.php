@@ -29,6 +29,7 @@ class AkunController extends Controller
 
             $this->validate($request, [
                 'name' => 'required|string|max:200|min:3',
+                'role' => 'required',
                 'email' => 'required|string|min:3|email|unique:users,email',
                 'password' => 'required|min:8|confirmed',
                 'password_confirmation' => 'required|min:8',
@@ -43,11 +44,13 @@ class AkunController extends Controller
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'role' => $request->role,
                 'password' => Hash::make($request->password),
                 'user_image' => $img
             ]);
             return redirect()->route('user.user', $data)->with('status', 'Data telah tersimpan di database');
         }
+        $data['role'] = Roles::where('id', '<', 8)->get();
         return view('admin.user.addUser', $data);
     }
 
@@ -59,6 +62,7 @@ class AkunController extends Controller
 
             $this->validate($request, [
                 'name' => 'required|string|max:200|min:3',
+                'role' => 'required',
                 'email' => 'required|string|min:3|email|unique:users,email,' . $usr->id,
                 'password' => 'required|min:8|confirmed',
                 'password_confirmation' => 'required|min:8',
@@ -77,6 +81,7 @@ class AkunController extends Controller
             $usr->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'role' => $request->role,
                 'password' => Hash::make($request->password),
                 'user_image' => $img
             ]);

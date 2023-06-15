@@ -42,6 +42,23 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="form-group ">
+                                <label for="role">Role</label>
+
+                                <select id="role" required name="role" aria-label=".form-select-sm example"
+                                    class="form-select form-select-sm ">
+                                    <option value="" selected>Pilih Role</option>
+                                    @foreach ($role as $r)
+                                        <option value="{{ $r['id'] }}">{{ $r['role'] }}</option>
+                                    @endforeach
+                                </select>
+                                @error('role')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
                             <div class="form-group">
                                 <label for="inputFoto">Foto Profil</label>
                                 <div class="row">

@@ -27,13 +27,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Dashboard';
-        return view('admin.dashboard', $data);
+        if (Auth::user()->role < 5) {
+            $data['title'] = 'Dashboard';
+            return view('admin.dashboard', $data);
+        } else {
+            return redirect()->route('schedule.index');
+        }
     }
 
     public function profile()
     {
-        return view('page.admin.profile');
+        $data['title'] = 'Profile';
+        $data['usr'] = User::findOrFail(Auth::user()->id);
+        return view('admin.profile', $data);
     }
 
     public function updateprofile(Request $request)

@@ -1,7 +1,6 @@
-@extends('admin.layouts.adminlayout') @section('judul', 'Ubah Akun')
+@extends('admin.layouts.adminlayout')
+
 @section('content')
-
-
     <!-- Main content -->
     <section class="content">
         @if (session('status'))
@@ -14,108 +13,133 @@
         <form method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-11">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Informasi Data Diri</h3>
-
+                            <h3 class="card-title">Form Penjadwalan</h3>
 
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="inputName">Nama</label>
-                                <input type="text" id="inputName" name="name"
-                                    class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan Nama"
-                                    value="{{ $usr->name }}" required="required" autocomplete="name">
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" id="inputEmail" name="email"
-                                    class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email"
-                                    value="{{ $usr->email }}" required="required" autocomplete="email">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="inputFoto">Foto Profil</label>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        @if ($usr->user_image)
-                                            <img class="elevation-3" id="prevImg" src="{{ $usr->user_image }}"
-                                                width="150px" />
-                                        @else
-                                            <img class="elevation-3" id="prevImg"
-                                                src="{{ asset('vendor/adminlte3/img/user2-160x160.jpg') }}"
-                                                width="150px" />
+                            <div class="row">
+                                <div class="form-group col-3">
+                                    <label for="inputDate">Date</label>
+                                    <input type="date" id="inputDate" name="date"
+                                        class="form-control @error('date') is-invalid @enderror"
+                                        placeholder="Masukkan Tangga;" value="{{ $schedule->date }}" required="required"
+                                        autocomplete="date">
+                                    @error('date')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="inputschool">Sekolah Tujuan</label>
+
+                                    <select id="inputschool" name="school" aria-label=".form-select-sm example"
+                                        class="form-select form-select-sm ">
+                                        <option selected>Pilih Sekolah Tujuan</option>
+                                        @foreach ($school as $s)
+                                            <option value="{{ $s['id'] }}"
+                                                @if ($schedule->school_id == $s['id']) {{ 'selected' }} @endif>
+                                                {{ $s['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('school')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="inputpic1">PIC 1</label>
+
+                                    <select id="inputpic1" name="pic1" aria-label=".form-select-sm example"
+                                        class="form-select form-select-sm ">
+                                        <option selected>Pilih PIC Ke-1</option>
+                                        @foreach ($pegawaiAll as $p)
+                                            <option value="{{ $p['id'] }}"
+                                                @if ($schedule->pic_1 == $p['id']) {{ 'selected' }} @endif>
+                                                {{ $p['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('pic1')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="inputpic2">PIC 2</label>
+
+                                    <select id="inputpic2" name="pic2" aria-label=".form-select-sm example"
+                                        class="form-select form-select-sm ">
+                                        <option selected>Pilih PIC Ke-2</option>
+                                        @foreach ($pegawaiAll as $p)
+                                            <option value="{{ $p['id'] }}"
+                                                @if ($schedule->pic_2 == $p['id']) {{ 'selected' }} @endif>
+                                                {{ $p['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('pic2')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="inputdescription">Description</label>
+
+                                    <textarea id="inputdescription" name="description" class="form-control">{{ $schedule->description }}</textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-6">
+
+                                    <label for="inputsurat">Upload Surat Dinas</label>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="file" id="inputsurat" name="surat_dinas" accept="image/*"
+                                                class="form-control @error('surat_dinas') is-invalid @enderror"
+                                                placeholder="Upload foto profil">
+                                        </div>
+                                        @if ($schedule->surat_dinas)
+                                            <div class="col-md-4">
+                                                <a class="btn btn-info btn-sm" target="_BLANK"
+                                                    href="{{ asset($schedule->surat_dinas) }}">File</a>
+                                            </div>
                                         @endif
                                     </div>
-                                    <div class="col-md-8">
-                                        <input type="file" id="inputFoto" name="user_image" accept="image/*"
-                                            class="form-control @error('user_image') is-invalid @enderror"
-                                            placeholder="Upload foto profil">
+
+                                    @error('surat_dinas')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer ">
+                                    <div class="col-12 row justify-content-between">
+                                        <a href="{{ url('dashboard/admin/schedule') }}"
+                                            class=" col-3 m-1 btn btn-secondary">Cancel</a>
+                                        <input type="submit" value="Simpan Perubahan Schedule"
+                                            class=" col-3 m-1 btn btn-success float-right">
                                     </div>
                                 </div>
-
-                                @error('user_image')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
-                        <!-- /.card-body -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
-                </div>
-                <div class="col-md-6">
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">Password</h3>
 
-
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input id="password" type="password" placeholder="Kata Sandi"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required="required" autocomplete="new-password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="password-confirm">Konfirmasi Password</label>
-                                <input placeholder="Ketik ulang kata sandi" id="password-confirm" type="password"
-                                    class="form-control" name="password_confirmation" required="required"
-                                    autocomplete="new-password">
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <a href="javascript:history.back()" class="btn btn-secondary">Cancel</a>
-                    <input type="submit" value="Ubah Akun" class="btn btn-success float-right">
                 </div>
             </div>
         </form>
     </section>
     <!-- /.content -->
-
     @endsection @section('script_footer')
     <script>
         inputFoto.onchange = evt => {

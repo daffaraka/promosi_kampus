@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-10">
                                 <div class="numbers">
-                                    <p>Welcome To Dashboard</p>
+                                    <p>SELAMAT DATANG {{ strtoupper(Auth::user()->name) }}</p>
                                 </div>
                             </div>
 

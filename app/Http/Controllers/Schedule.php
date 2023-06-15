@@ -94,16 +94,16 @@ class Schedule extends Controller
             $search_text = $request->input('search.value');
 
             $schedule_data =  ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
-                ->orWhere('name', 'LIKE', "%{$search_text}%")
-                ->orWhere('email', 'LIKE', "%{$search_text}%")
+                // ->orWhere('name', 'LIKE', "%{$search_text}%")
+                // ->orWhere('email', 'LIKE', "%{$search_text}%")
                 ->offset($start_val)
                 ->limit($limit_val)
                 ->orderBy($order_val, $dir_val)
                 ->get();
 
             $totalFilteredRecord = ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
-                ->orWhere('name', 'LIKE', "%{$search_text}%")
-                ->orWhere('email', 'LIKE', "%{$search_text}%")
+                // ->orWhere('name', 'LIKE', "%{$search_text}%")
+                // ->orWhere('email', 'LIKE', "%{$search_text}%")
                 ->count();
         }
 
@@ -141,5 +141,63 @@ class Schedule extends Controller
         );
 
         echo json_encode($get_json_data);
+    }
+
+    public function ubahschedule($id, Request $request)
+    {
+        $data['title'] = 'Ubah Data Schedule';
+        $data['schedule'] =  ModelsSchedule::findOrFail($id);
+
+        $data['pegawaiAll'] = User::where('role', '=', '5')
+            ->get();
+
+        $data['school'] = SchoolDetail::get();
+        if ($request->isMethod('post')) {
+
+            $this->validate($request, [
+                'school' => 'required',
+                'date' => 'required',
+                'pic1' => 'required',
+                'pic2' => 'required',
+                'surat_dinas' => 'image|mimes:jpg,png,jpeg,gif,svg|max:1024',
+                'description' => 'required',
+            ]);
+            $img =  $data['schedule']->surat_dinas;
+            if ($request->file('surat_dinas')) {
+                # delete old img
+                if ($img && file_exists(public_path() . $img)) {
+                    unlink(public_path() . $img);
+                }
+                $nama_gambar = time() . '_' . $request->file('surat_dinas')->getClientOriginalName();
+                $upload = $request->surat_dinas->storeAs('public/admin/img/surat_dinas', $nama_gambar);
+                $img = Storage::url($upload);
+            }
+
+
+            $data['schedule']->update([
+                'school_id' => $request->school,
+                'date' => $request->date,
+                'pic_1' => $request->pic1,
+                'pic_2' => $request->pic2,
+                'surat_dinas' => $img,
+                'description' => $request->description,
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect()->route('schedule.index', $data)->with('status', 'Data telah Diubah di database');
+        }
+
+        return view('admin.schedule.ubahschedule', $data);
+    }
+
+    public function hapusschedule($id)
+    {
+        $schedule = ModelsSchedule::findOrFail($id);
+        if ($schedule->user_image && file_exists(public_path() . $schedule->user_image)) {
+            unlink(public_path() . $schedule->user_image);
+        }
+        $schedule->delete($id);
+        return response()->json([
+            'msg' => 'Data yang dipilih telah dihapus'
+        ]);
     }
 }
