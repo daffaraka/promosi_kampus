@@ -36,9 +36,9 @@
                                 <div class="form-group col-3">
                                     <label for="inputschool">Sekolah Tujuan</label>
 
-                                    <select id="inputschool" name="school" aria-label=".form-select-sm example"
+                                    <select id="inputschool" name="school" aria-label=".form-select-sm example" required
                                         class="form-select form-select-sm ">
-                                        <option selected>Pilih Sekolah Tujuan</option>
+                                        <option selected value="">Pilih Sekolah Tujuan</option>
                                         @foreach ($school as $s)
                                             <option value="{{ $s['id'] }}"
                                                 @if ($schedule->school_id == $s['id']) {{ 'selected' }} @endif>
@@ -54,9 +54,9 @@
                                 <div class="form-group col-3">
                                     <label for="inputpic1">PIC 1</label>
 
-                                    <select id="inputpic1" name="pic1" aria-label=".form-select-sm example"
+                                    <select id="inputpic1" name="pic1" aria-label=".form-select-sm example" required
                                         class="form-select form-select-sm ">
-                                        <option selected>Pilih PIC Ke-1</option>
+                                        <option selected value="">Pilih PIC Ke-1</option>
                                         @foreach ($pegawaiAll as $p)
                                             <option value="{{ $p['id'] }}"
                                                 @if ($schedule->pic_1 == $p['id']) {{ 'selected' }} @endif>
@@ -72,9 +72,9 @@
                                 <div class="form-group col-3">
                                     <label for="inputpic2">PIC 2</label>
 
-                                    <select id="inputpic2" name="pic2" aria-label=".form-select-sm example"
+                                    <select id="inputpic2" name="pic2" aria-label=".form-select-sm example" required
                                         class="form-select form-select-sm ">
-                                        <option selected>Pilih PIC Ke-2</option>
+                                        <option selected value="">Pilih PIC Ke-2</option>
                                         @foreach ($pegawaiAll as $p)
                                             <option value="{{ $p['id'] }}"
                                                 @if ($schedule->pic_2 == $p['id']) {{ 'selected' }} @endif>

@@ -25,7 +25,7 @@
                                     <label for="inputDate">Date</label>
                                     <input type="date" id="inputDate" name="date"
                                         class="form-control @error('date') is-invalid @enderror"
-                                        placeholder="Masukkan Tangga;" value="{{ old('date') }}" required="required"
+                                        placeholder="Masukkan Tangga;" value="{{ old('date') }}" required
                                         autocomplete="date">
                                     @error('date')
                                         <span class="invalid-feedback" role="alert">
@@ -36,9 +36,9 @@
                                 <div class="form-group col-3">
                                     <label for="inputschool">Sekolah Tujuan</label>
 
-                                    <select id="inputschool" name="school" aria-label=".form-select-sm example"
+                                    <select id="inputschool" required name="school" aria-label=".form-select-sm example"
                                         class="form-select form-select-sm ">
-                                        <option selected>Pilih Sekolah Tujuan</option>
+                                        <option value="" selected>Pilih Sekolah Tujuan</option>
                                         @foreach ($school as $s)
                                             <option value="{{ $s['id'] }}">{{ $s['name'] }}</option>
                                         @endforeach
@@ -52,9 +52,9 @@
                                 <div class="form-group col-3">
                                     <label for="inputpic1">PIC 1</label>
 
-                                    <select id="inputpic1" name="pic1" aria-label=".form-select-sm example"
+                                    <select id="inputpic1" required name="pic1" aria-label=".form-select-sm example"
                                         class="form-select form-select-sm ">
-                                        <option selected>Pilih PIC Ke-1</option>
+                                        <option value="" selected>Pilih PIC Ke-1</option>
                                         @foreach ($pegawaiAll as $p)
                                             <option value="{{ $p['id'] }}">{{ $p['name'] }}</option>
                                         @endforeach
@@ -68,9 +68,9 @@
                                 <div class="form-group col-3">
                                     <label for="inputpic2">PIC 2</label>
 
-                                    <select id="inputpic2" name="pic2" aria-label=".form-select-sm example"
+                                    <select id="inputpic2" required name="pic2" aria-label=".form-select-sm example"
                                         class="form-select form-select-sm ">
-                                        <option selected>Pilih PIC Ke-2</option>
+                                        <option value="" selected>Pilih PIC Ke-2</option>
                                         @foreach ($pegawaiAll as $p)
                                             <option value="{{ $p['id'] }}">{{ $p['name'] }}</option>
                                         @endforeach
@@ -84,7 +84,7 @@
                                 <div class="form-group col-6">
                                     <label for="inputdescription">Description</label>
 
-                                    <textarea id="inputdescription" name="description" class="form-control" value="{{ old('description') }}"></textarea>
+                                    <textarea id="inputdescription" required name="description" class="form-control" value="{{ old('description') }}"></textarea>
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
