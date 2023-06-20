@@ -31,6 +31,9 @@ class RolesSeeder extends Seeder
                     'role' => 'Koordinator PMB'
                 ],
                 [
+                    'role' => 'Bagian Umum'
+                ],
+                [
                     'role' => 'Pegawai'
                 ],
                 [

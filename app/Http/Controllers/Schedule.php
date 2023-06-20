@@ -6,6 +6,7 @@ use App\Models\Schedule as ModelsSchedule;
 use App\Models\SchoolDetail;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Schedule extends Controller
@@ -31,7 +32,7 @@ class Schedule extends Controller
     {
         $data['title'] = 'Tambah Penjadwalan Kunjungan';
 
-        $data['pegawaiAll'] = User::where('role', '=', '5')
+        $data['pegawaiAll'] = User::where('role', '=', '6')
             ->get();
         $data['school'] = SchoolDetail::get();
         if ($request->isMethod('post')) {
@@ -70,14 +71,19 @@ class Schedule extends Controller
         $totalFilteredRecord = $totalDataRecord = $draw_val = "";
         $columns_list = array(
             0 => 'no',
-            1 => 'pic',
+            1 => 'pic_1',
+            1 => 'pic_2',
             2 => 'school',
             3 => 'date',
             4 => 'options',
         );
-
-        $totalDataRecord = ModelsSchedule::count();
-
+        if (Auth::user()->role == '6') {
+            $totalDataRecord = ModelsSchedule::where('pic_1', Auth::id())
+                ->orwhere('pic_2', Auth::id())
+                ->count();
+        } else {
+            $totalDataRecord = ModelsSchedule::count();
+        }
         $totalFilteredRecord = $totalDataRecord;
 
         $limit_val = $request->input('length');
@@ -86,25 +92,56 @@ class Schedule extends Controller
         $dir_val = $request->input('order.0.dir');
 
         if (empty($request->input('search.value'))) {
-            $schedule_data = ModelsSchedule::offset($start_val)
-                ->limit($limit_val)
-                ->orderBy($order_val, $dir_val)
-                ->get();
+
+            if (Auth::user()->role == '6') {
+                $schedule_data = ModelsSchedule::where('pic_1', Auth::id())
+                    ->orwhere('pic_2', Auth::id())
+                    ->offset($start_val)
+                    ->limit($limit_val)
+                    ->orderBy($order_val, $dir_val)
+                    ->get();
+            } else {
+                $schedule_data = ModelsSchedule::offset($start_val)
+                    ->limit($limit_val)
+                    ->orderBy($order_val, $dir_val)
+                    ->get();
+            }
         } else {
             $search_text = $request->input('search.value');
 
-            $schedule_data =  ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
-                // ->orWhere('name', 'LIKE', "%{$search_text}%")
-                // ->orWhere('email', 'LIKE', "%{$search_text}%")
-                ->offset($start_val)
-                ->limit($limit_val)
-                ->orderBy($order_val, $dir_val)
-                ->get();
+            if (Auth::user()->role == '6') {
 
-            $totalFilteredRecord = ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
-                // ->orWhere('name', 'LIKE', "%{$search_text}%")
-                // ->orWhere('email', 'LIKE', "%{$search_text}%")
-                ->count();
+                $schedule_data =  ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
+                    ->where('pic_1', Auth::id())
+                    ->orwhere('pic_2', Auth::id())
+                    // ->orWhere('name', 'LIKE', "%{$search_text}%")
+                    // ->orWhere('email', 'LIKE', "%{$search_text}%")
+                    ->offset($start_val)
+                    ->limit($limit_val)
+                    ->orderBy($order_val, $dir_val)
+                    ->get();
+
+                $totalFilteredRecord = ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
+                    ->where('pic_1', Auth::id())
+                    ->orwhere('pic_2', Auth::id())
+
+                    // ->orWhere('name', 'LIKE', "%{$search_text}%")
+                    // ->orWhere('email', 'LIKE', "%{$search_text}%")
+                    ->count();
+            } else {
+                $schedule_data =  ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
+                    // ->orWhere('name', 'LIKE', "%{$search_text}%")
+                    // ->orWhere('email', 'LIKE', "%{$search_text}%")
+                    ->offset($start_val)
+                    ->limit($limit_val)
+                    ->orderBy($order_val, $dir_val)
+                    ->get();
+
+                $totalFilteredRecord = ModelsSchedule::where('id', 'LIKE', "%{$search_text}%")
+                    // ->orWhere('name', 'LIKE', "%{$search_text}%")
+                    // ->orWhere('email', 'LIKE', "%{$search_text}%")
+                    ->count();
+            }
         }
 
         $data_val = array();
@@ -124,11 +161,66 @@ class Schedule extends Controller
                     ->get();
                 $school =  SchoolDetail::where('id', $sch->school_id)
                     ->get();
+                if ($sch->pic_1_status == '1') {
+                    $statuspic1 = '<br/><span class="bg-success badge badge-success" >Accepted</span>';
+                } else if ($sch->pic_1_status == '2') {
+                    $statuspic1 = '<br/><span class="bg-danger badge badge-danger" >Rejected</span>';
+                } else {
+                    $statuspic1 = '<br/><span class="bg-secondary badge badge-gray" >On Confirm</span>';
+                }
+                if ($sch->pic_2_status == '1') {
+                    $statuspic2 = '<br/><span class="bg-success badge badge-success" >Accepted</span>';
+                } else if ($sch->pic_2_status == '2') {
+                    $statuspic2 = '<br/><span class="bg-danger badge badge-danger" >Rejected</span>';
+                } else {
+                    $statuspic2 = '<br/><span class="bg-secondary badge badge-gray" >On Confirm</span>';
+                }
+
+                if (Auth::user()->role == '6') {
+
+                    //check user on data
+                    $checkpic1 =  ModelsSchedule::where('id', $sch->id)
+                        ->where(
+                            'pic_1',
+                            Auth::id()
+                        )->count();
+                    $checkpic2 =  ModelsSchedule::where('id', $sch->id)
+                        ->where('pic_2', Auth::id())
+                        ->count();
+
+                    if ($checkpic1 > 0) {
+                        $status = $sch->pic_1_status;
+                    } else if ($checkpic2 > 0) {
+                        $status = $sch->pic_2_status;
+                    }
+                    $urlconfirm = route('schedule.editconfirm', $sch->id);
+
+                    $action = "<select class='form-control confirm-status' id='confirm-status' data-url='" . $urlconfirm . "' data-id='" . $sch->id . "'> ";
+                    if ($status == '0') {
+                        $action .= " <option value='0' selected >On Confirm</option>";
+                    } else {
+                        $action .= " <option value='0' >On Confirm</option>";
+                    }
+                    if ($status == '1') {
+                        $action .= " <option value='1' selected >Accept</option> ";
+                    } else {
+                        $action .= " <option value='1' >Accept</option> ";
+                    }
+                    if ($status == '2') {
+                        $action .= " <option value='2' selected>Reject</option> ";
+                    } else {
+                        $action .= " <option value='2' >Reject</option> ";
+                    }
+                    $action .= "  </select>";
+                } else {
+                    $action = "<a href='$url'><i class='fas fa-edit fa-lg'></i></a> <a style='border: none; background-color:transparent;' class='hapusData' data-id='$sch->id' data-url='$urlHapus'><i class='fas fa-trash fa-lg text-danger'></i></a>";
+                }
                 $akunnestedData['no'] = $i + 1;
-                $akunnestedData['pic'] = $pic1[0]->name . ',' . $pic2[0]->name;
+                $akunnestedData['pic_1'] =  $pic1[0]->name . $statuspic1;
+                $akunnestedData['pic_2'] = $pic2[0]->name . $statuspic2;
                 $akunnestedData['school'] =  $school[0]->name;
                 $akunnestedData['date'] =  $sch->date;
-                $akunnestedData['options'] = "<a href='$url'><i class='fas fa-edit fa-lg'></i></a> <a style='border: none; background-color:transparent;' class='hapusData' data-id='$sch->id' data-url='$urlHapus'><i class='fas fa-trash fa-lg text-danger'></i></a>";
+                $akunnestedData['options'] = $action;
                 $data_val[] = $akunnestedData;
             }
         }
@@ -148,7 +240,7 @@ class Schedule extends Controller
         $data['title'] = 'Ubah Data Schedule';
         $data['schedule'] =  ModelsSchedule::findOrFail($id);
 
-        $data['pegawaiAll'] = User::where('role', '=', '5')
+        $data['pegawaiAll'] = User::where('role', '=', '6')
             ->get();
 
         $data['school'] = SchoolDetail::get();
@@ -198,6 +290,42 @@ class Schedule extends Controller
         $schedule->delete($id);
         return response()->json([
             'msg' => 'Data yang dipilih telah dihapus'
+        ]);
+    }
+
+    public function ubahconfirmschedule($id)
+    {
+
+        $schedule = ModelsSchedule::findOrFail($_POST['id']);
+
+        $checkpic1 =  ModelsSchedule::where('id', $_POST['id'])
+            ->where(
+                'pic_1',
+                Auth::id()
+            )->count();
+        $checkpic2 =  ModelsSchedule::where('id', $_POST['id'])
+            ->where('pic_2', Auth::id())
+            ->count();
+
+        if ($checkpic1 > 0) {
+            $schedule->update([
+                'pic_1_status' => $_POST['idc'],
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+            $msg = 'Status Kehadiran Anda Sudah diganti';
+        } else if ($checkpic2 > 0) {
+            $schedule->update([
+                'pic_2_status' => $_POST['idc'],
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            $msg = 'Status Kehadiran Anda Sudah diganti';
+        } else {
+            $msg = 'error';
+        }
+
+        return response()->json([
+            'msg' => $msg
         ]);
     }
 }

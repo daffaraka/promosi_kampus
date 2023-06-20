@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('date');
             $table->unsignedBigInteger('pic_1');
             $table->unsignedBigInteger('pic_2');
+            $table->string('pic_1_status');
+            $table->string('pic_2_status');
             $table->string('surat_dinas');
             $table->string('description');
             $table->timestamps();

@@ -58,6 +58,14 @@ class PenggunaSeeder extends Seeder
                     'role' => 4,
                     'user_image' => 'user2-160x160.jpg',
                     'remember_token' => Str::random(10),
+                ], [
+                    'name' => 'umum',
+                    'email' => 'umum@gmail.com',
+                    'password' => hash::make('admin123'),
+                    'email_verified_at' => now(),
+                    'role' => 5,
+                    'user_image' => 'user2-160x160.jpg',
+                    'remember_token' => Str::random(10),
                 ],
                 [
                     'name' => 'Pegawai1',

@@ -39,10 +39,16 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>PIC</th>
+                                    <th>PIC 1</th>
+                                    <th>PIC 2</th>
                                     <th>Sekolah</th>
                                     <th>Tanggal</th>
-                                    <th>Action</th>
+                                    @if (Auth::user()->role == '6')
+                                        <th>Konfirmasi</th>
+                                    @else
+                                        <th>action</th>
+                                    @endif
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,7 +89,9 @@
                 "columns": [{
                     "data": "no"
                 }, {
-                    "data": "pic"
+                    "data": "pic_1"
+                }, {
+                    "data": "pic_2"
                 }, {
                     "data": "school"
                 }, {
@@ -146,6 +154,45 @@
                                 success: function(response) {
                                     // console.log();
                                     Swal.fire('Terhapus!', response.msg, 'success');
+                                    $('#previewSchedule').DataTable().ajax.reload();
+                                }
+                            });
+                        }
+                    })
+            });
+
+            $('#previewSchedule').on('change', '.confirm-status', function() {
+                var id = $(this).attr("data-id");
+                var idc = $(this).val();
+                var url = document.getElementById('confirm-status').getAttribute("data-url");
+                console.log(id);
+                console.log(idc);
+                console.log(url);
+                Swal
+                    .fire({
+                        title: 'Apa kamu yakin?',
+                        text: "Kamu akan Mengganti Status Kehadiran Kunjungan Kamu!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya',
+                        cancelButtonText: 'Batal'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            // console.log();
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                data: {
+                                    "id": id,
+                                    "idc": idc,
+                                    "_token": "{{ csrf_token() }}"
+                                },
+                                success: function(response) {
+                                    // console.log();
+                                    Swal.fire('Status Diganti!', response.msg, 'success');
                                     $('#previewSchedule').DataTable().ajax.reload();
                                 }
                             });

@@ -137,6 +137,7 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::post('showdata', 'dataTable')->name('dataTable');
             Route::match(['get', 'post'], 'tambah', 'tambahschedule')->name('add');
             Route::match(['get', 'post'], '{id}/ubah', 'ubahschedule')->name('edit');
+            Route::match(['get', 'post'], '{id}/editconfirm', 'ubahconfirmschedule')->name('editconfirm');
             Route::delete('{id}/hapus', 'hapusschedule')->name('delete');
         });
 });

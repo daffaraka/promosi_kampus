@@ -14,6 +14,8 @@ class Schedule extends Model
         'date',
         'pic_1',
         'pic_2',
+        'pic_1_status',
+        'pic_2_status',
         'surat_dinas',
         'description',
         'created_at',
