@@ -48,7 +48,7 @@
                     <ul class="dropdown-menu  dropdown-menu-end bg-gray-100 p-0 me-sm-n4 m-0 {{ Request::segment(3) == 'user' || Request::segment(3) == 'kuisioner' ? 'show' : '' }}"
                         aria-labelledby="dropdownData" style="margin: 0 1rem !important;">
                         <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                            <a class="dropdown-item border-radius-md" href="{{route('kriteria.index')}}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-table me-sm-1"></i>
@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                            <a class="dropdown-item border-radius-md" href="{{route('subKriteria.index')}}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-table me-sm-1"></i>

@@ -4,8 +4,11 @@ use App\Http\Controllers\AkunController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\QuisionerController;
 use App\Http\Controllers\Schedule;
+use App\Http\Controllers\SubKriteriaController;
+use App\Models\SubKriteria;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,16 +109,16 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
         });
 
-    Route::controller(AkunController::class)
-        ->prefix('kriteria')
-        ->as('kriteria.')
-        ->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('showdata', 'dataTable')->name('dataTable');
-            Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
-            Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
-            Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
-        });
+    // Route::controller(AkunController::class)
+    //     ->prefix('kriteria')
+    //     ->as('kriteria.')
+    //     ->group(function () {
+    //         Route::get('/', 'index')->name('index');
+    //         Route::post('showdata', 'dataTable')->name('dataTable');
+    //         Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
+    //         Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
+    //         Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
+    //     });
     Route::controller(AkunController::class)
         ->prefix('alternatif')
         ->as('alternatif.')
@@ -137,6 +140,29 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
             Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
             Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
+        });
+
+    Route::controller(KriteriaController::class)
+        ->prefix('kriteria')
+        ->as('kriteria.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}', 'update')->name('update');
+            Route::get('delete/{id}', 'destroy')->name('delete');
+        });
+    Route::controller(SubKriteriaController::class)
+        ->prefix('subKriteria')
+        ->as('subKriteria.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}', 'update')->name('update');
+            Route::get('delete/{id}', 'destroy')->name('delete');
         });
     Route::controller(Schedule::class)
         ->prefix('schedule')
