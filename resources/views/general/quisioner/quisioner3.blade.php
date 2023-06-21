@@ -300,7 +300,7 @@
                         </div>
                         <div class="col-lg-1 col-3">
                             <a type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0"
-                                href="{{ url('/quisioner/3') }}">Next</a>
+                                href="{{ url('/quisioner/4') }}">Next</a>
 
                         </div>
                     </div>

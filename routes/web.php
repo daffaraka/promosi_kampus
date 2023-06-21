@@ -32,8 +32,17 @@ Route::get('/quisioner/2', function () {
 });
 
 
+Route::get('/quisioner/3', function () {
+    return view('general.quisioner.quisioner3');
+});
+
+
 Route::get('/quisioner/4', function () {
     return view('general.quisioner.quisioner4');
+});
+
+Route::get('/quisioner/5', function () {
+    return view('general.quisioner.quisioner5');
 });
 
 Route::get('/test', function () {

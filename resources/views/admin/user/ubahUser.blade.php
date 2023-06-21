@@ -49,9 +49,10 @@
 
                                 <select id="role" required name="role" aria-label=".form-select-sm example"
                                     class="form-select form-select-sm ">
-                                    <option value="" selected>Pilih Role</option>
+                                    <option value="">Pilih Role</option>
                                     @foreach ($role as $r)
-                                        <option value="{{ $r['id'] }}">{{ $r['role'] }}</option>
+                                        <option value="{{ $r['id'] }}"
+                                            @if ($usr->role == $r['id']) selected @endif>{{ $r['role'] }}</option>
                                     @endforeach
                                 </select>
                                 @error('role')

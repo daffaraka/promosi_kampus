@@ -58,6 +58,8 @@ class AkunController extends Controller
     {
         $data['title'] = 'Data User';
         $usr = User::findOrFail($id);
+        $data['role'] = Roles::where('id', '<', 8)->get();
+
         if ($request->isMethod('post')) {
 
             $this->validate($request, [
@@ -85,6 +87,7 @@ class AkunController extends Controller
                 'password' => Hash::make($request->password),
                 'user_image' => $img
             ]);
+
             $data['id'] = $usr->id;
             return redirect()->route('user.user', $data)->with('status', 'Data telah tersimpan di database');
         }
