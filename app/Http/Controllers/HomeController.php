@@ -44,12 +44,15 @@ class HomeController extends Controller
 
     public function updateprofile(Request $request)
     {
+
         $usr = User::findOrFail(Auth::user()->id);
-        if ($request->input('type') == 'change_profile') {
+        if ($usr) {
             $this->validate($request, [
                 'name' => 'string|max:200|min:3',
                 'email' => 'string|min:3|email',
-                'user_image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:1024'
+                'user_image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:1024',
+                'password' => 'min:8|confirmed|required',
+                'password_confirmation' => 'min:8|required',
             ]);
             $img_old = Auth::user()->user_image;
             if ($request->file('user_image')) {
@@ -64,17 +67,11 @@ class HomeController extends Controller
             $usr->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'user_image' => $img_old
-            ]);
-            return redirect()->route('profile')->with('status', 'Perubahan telah tersimpan');
-        } elseif ($request->input('type') == 'change_password') {
-            $this->validate($request, [
-                'password' => 'min:8|confirmed|required',
-                'password_confirmation' => 'min:8|required',
-            ]);
-            $usr->update([
+                'user_image' => $img_old,
                 'password' => Hash::make($request->password)
             ]);
+            return redirect()->route('profile')->with('status', 'Perubahan telah tersimpan');
+        } else {
             return redirect()->route('profile')->with('status', 'Perubahan telah tersimpan');
         }
     }

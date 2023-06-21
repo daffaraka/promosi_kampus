@@ -7,79 +7,52 @@ use Illuminate\Http\Request;
 
 class AlternatifController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $data['alternatif'] = Alternatif::all();
+        $data['title'] = 'Alternatif';
+        return view('admin.alternatif.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $data['title'] = 'Tambah Sub Kriteria';
+        return view('admin.alternatif.addalternatif', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        Alternatif::create($request->all());
+
+        return redirect()->route('alternatif.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Alternatif  $alternatif
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Alternatif $alternatif)
+
+
+    public function edit($id)
     {
-        //
+        $data['title'] = 'Tambah Alternatif';
+        $data['alternatif'] = Alternatif::find($id);
+
+        return view('admin.alternatif.editalternatif', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Alternatif  $alternatif
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Alternatif $alternatif)
+
+    public function update(Request $request, $id)
     {
-        //
+        $alternatif = Alternatif::find($id);
+        $alternatif->update($request->all());
+
+        return redirect()->route('alternatif.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Alternatif  $alternatif
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Alternatif $alternatif)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Alternatif  $alternatif
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Alternatif $alternatif)
+    public function destroy($id)
     {
-        //
+        $alternatif = Alternatif::find($id);
+        $alternatif->delete();
+        return redirect()->route('alternatif.index');
     }
 }

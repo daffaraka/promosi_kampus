@@ -77,7 +77,7 @@
                             </a>
                         </li>
                         <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                            <a class="dropdown-item border-radius-md" href="{{route('alternatif.index')}}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-table me-sm-1"></i>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\AlternatifController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -142,6 +143,7 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
         });
 
+    // Kriteria
     Route::controller(KriteriaController::class)
         ->prefix('kriteria')
         ->as('kriteria.')
@@ -153,6 +155,8 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::post('update/{id}', 'update')->name('update');
             Route::get('delete/{id}', 'destroy')->name('delete');
         });
+
+    // Sub Kriteria
     Route::controller(SubKriteriaController::class)
         ->prefix('subKriteria')
         ->as('subKriteria.')
@@ -164,6 +168,20 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::post('update/{id}', 'update')->name('update');
             Route::get('delete/{id}', 'destroy')->name('delete');
         });
+
+    // Alternatif
+    Route::controller(AlternatifController::class)
+        ->prefix('alternatif')
+        ->as('alternatif.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}', 'update')->name('update');
+            Route::get('delete/{id}', 'destroy')->name('delete');
+        });
+
     Route::controller(Schedule::class)
         ->prefix('schedule')
         ->as('schedule.')

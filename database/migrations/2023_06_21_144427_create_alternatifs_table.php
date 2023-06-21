@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('alternatifs', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('nama_alternatif');
             $table->timestamps();
         });
     }

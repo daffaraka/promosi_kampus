@@ -9,15 +9,13 @@
                 {{ session('status') }}
             </div>
         @endif
-        <form method="post" enctype="multipart/form-data">
+        <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Informasi Data Diri</h3>
-
-
                         </div>
                         <div class="card-body">
                             <div class="form-group">
