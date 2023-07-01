@@ -16,7 +16,7 @@
                 <div class="col-md-12 col-xl-12 col-xxl-12 col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Informasi Data Diri</h3>
+                            <h3 class="card-title">Tambah List Pertanyaan</h3>
 
                         </div>
                         <div class="card-body">
@@ -24,10 +24,10 @@
                                 <label for="inputName">Kuisioner Untuk</label>
                                 <select name="for" class="form-control @error('for') is-invalid @enderror"
                                     value="{{ old('for') }}" required="required">
-                                    <option value="Mahasiswa">Mahasiswa</option>
-                                    <option value="Alumni">Alumni</option>
-                                    <option value="Calon Mahasiswa">Calon Mahasiswa</option>
 
+                                    @foreach ($jenis as $item)
+                                        <option value="{{$item->id}}">{{$item->nama_jenis}} </option>
+                                    @endforeach
                                 </select>
                                 @error('for')
                                     <span class="invalid-feedback" role="alert">
@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail">Pertanyaan</label>
-                                <input type="text" id="inputEmail" name="question"
+                                <input type="text" id="inputEmail" name="judul_pertanyaan"
                                     class="form-control @error('question') is-invalid @enderror"
                                     placeholder="Masukkan Pertanyaan" value="{{ old('question') }}" required="required"
                                     autocomplete="question">

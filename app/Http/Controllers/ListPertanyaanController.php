@@ -16,24 +16,27 @@ class ListPertanyaanController extends Controller
         return view('admin.list-pertanyaan.index', $data);
     }
 
-    public function create($id)
+    public function create()
     {
-        $data['quisioner'] = Quisioner::find($id);
-        $data['title'] = 'Tambah Jenis Kuis';
+        $data['jenis'] = JenisQuisioner::all();
+        $data['title'] = 'Tambah List Pertanyaan';
 
         return view('admin.list-pertanyaan.addList', $data);
     }
 
+    public function create_new()
+    {
+        $data['jenis'] = JenisQuisioner::all();
+        $data['title'] = 'Tambah List Pertanyaan';
 
-
+        return view('admin.list-pertanyaan.addList', $data);
+    }
 
     public function store(Request $request)
     {
-        $id = $request->id_quisioner ?? Quisioner::where('question', $request->id_quisioner)->first()->id;
-
-        JenisQuisioner::create([
-            'nama_jenis' => $request->nama_jenis,
-            'id_quisioner' => $id
+        ListPertanyaan::create([
+            'judul_pertanyaan' => $request->judul_pertanyaan,
+            'id_jenis' =>  $request->id_jenis,
         ]);
 
         return redirect()->route('list-pertanyaan.index');

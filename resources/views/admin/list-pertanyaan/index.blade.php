@@ -13,7 +13,7 @@
                         <div class="row">
 
                             <h3 class="card-title col-6">
-                                <a href="{{ route('kuisioner.create') }}" class="btn btn-success"> + Tambah Pertanyaan</a>
+                                <a href="{{ route('list-pertanyaan.create_new') }}" class="btn btn-success"> + Tambah Pertanyaan</a>
 
                             </h3>
                             @if (session('status'))
