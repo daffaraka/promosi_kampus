@@ -47,7 +47,7 @@
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end bg-gray-100 p-0 me-sm-n4 m-0 {{ Request::segment(3) == 'user' || Request::segment(3) == 'kuisioner' ? 'show' : '' }}"
                         aria-labelledby="dropdownData" style="margin: 0 1rem !important;">
-                        <li class="mb-0">
+                        {{-- <li class="mb-0">
                             <a class="dropdown-item border-radius-md" href="{{route('kriteria.index')}}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="mb-0">
                             <a class="dropdown-item border-radius-md" href="{{ url('dashboard/admin/kuisioner') }}">
                                 <div class="d-flex py-1">
@@ -101,6 +101,44 @@
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="text-sm font-weight-normal mb-1">
                                                 <span class="font-weight-bold">Kuisioner</span>
+                                            </h6>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mb-0">
+                            <a class="dropdown-item border-radius-md" href="{{ url('dashboard/admin/jenis-kuis') }}">
+                                <div class="d-flex py-1">
+                                    <div class="d-flex py-1">
+                                        <div class="my-auto">
+                                            <i class="fa fa-table me-sm-1"></i>
+
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="text-sm font-weight-normal mb-1">
+                                                <span class="font-weight-bold">Jenis Quisioner</span>
+                                            </h6>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mb-0">
+                            <a class="dropdown-item border-radius-md" href="{{ url('dashboard/admin/list-pertanyaan') }}">
+                                <div class="d-flex py-1">
+                                    <div class="d-flex py-1">
+                                        <div class="my-auto">
+                                            <i class="fa fa-table me-sm-1"></i>
+
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="text-sm font-weight-normal mb-1">
+                                                <span class="font-weight-bold">List Pertanyaan</span>
                                             </h6>
 
                                         </div>

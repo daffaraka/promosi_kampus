@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('quisioners', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->set('for', ['Mahasiswa', 'Alumni', 'Calon Mahasiswa'])->default('Mahasiswa');
             $table->text('question');
             $table->set('status', ['0', '1'])->default('0');

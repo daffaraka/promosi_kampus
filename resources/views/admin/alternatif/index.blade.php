@@ -13,7 +13,7 @@
                         <div class="row">
 
                             <h3 class="card-title col-6">
-                                <a href="{{ route('alternatif.create') }}" class="btn btn-success"> + Tambah Alternatif</a>
+                                <a href="{{ route('jenis-kuis.create') }}" class="btn btn-success"> + Tambah Alternatif</a>
 
                             </h3>
                             @if (session('status'))

@@ -14,4 +14,8 @@ class Quisioner extends Model
         'question',
         'status',
     ];
+
+    public function jenisQuisioner() {
+        return $this->hasMany(JenisQuisioner::class,'id_quisioner');
+    }
 }

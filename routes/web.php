@@ -5,11 +5,14 @@ use App\Http\Controllers\AlternatifController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JenisQuisionerController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\ListPertanyaanController;
 use App\Http\Controllers\QuisionerController;
 use App\Http\Controllers\Schedule;
 use App\Http\Controllers\SubKriteriaController;
 use App\Models\SubKriteria;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +34,9 @@ Route::get('/quisioner/1', function () {
 });
 
 
-Route::get('/quisioner/2', function () {
+Route::get('/quisioner/2', function (Request $request) {
+
+    // dd($request->all());
     return view('general.quisioner.quisioner2');
 });
 
@@ -99,37 +104,6 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::delete('{id}/hapus', 'hapusUser')->name('delete');
         });
 
-    Route::controller(AkunController::class)
-        ->prefix('kuisioner')
-        ->as('kuisioner.')
-        ->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('showdata', 'dataTable')->name('dataTable');
-            Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
-            Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
-            Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
-        });
-
-    // Route::controller(AkunController::class)
-    //     ->prefix('kriteria')
-    //     ->as('kriteria.')
-    //     ->group(function () {
-    //         Route::get('/', 'index')->name('index');
-    //         Route::post('showdata', 'dataTable')->name('dataTable');
-    //         Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
-    //         Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
-    //         Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
-    //     });
-    Route::controller(AkunController::class)
-        ->prefix('alternatif')
-        ->as('alternatif.')
-        ->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('showdata', 'dataTable')->name('dataTable');
-            Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
-            Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
-            Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
-        });
 
 
     Route::controller(QuisionerController::class)
@@ -137,10 +111,12 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
         ->as('kuisioner.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::post('showdata', 'dataTable')->name('dataTable');
-            Route::match(['get', 'post'], 'tambah', 'tambahAkun')->name('add');
-            Route::match(['get', 'post'], '{id}/ubah', 'ubahAkun')->name('edit');
-            Route::delete('{id}/hapus', 'hapusAkun')->name('delete');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::get('show/{id}', 'show')->name('show');
+            Route::post('update/{id}', 'update')->name('update');
+            Route::get('delete/{id}', 'destroy')->name('delete');
         });
 
     // Kriteria
@@ -150,6 +126,35 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}', 'update')->name('update');
+            Route::get('delete/{id}', 'destroy')->name('delete');
+        });
+
+
+    // Jenis Quisioner
+    Route::controller(JenisQuisionerController::class)
+        ->prefix('jenis-kuis')
+        ->as('jenis-kuis.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create_new')->name('create_new');
+            Route::get('{quis_id}/create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}', 'update')->name('update');
+            Route::get('delete/{id}', 'destroy')->name('delete');
+        });
+
+    // List Pertanyaan
+    Route::controller(ListPertanyaanController::class)
+        ->prefix('list-pertanyaan')
+        ->as('list-pertanyaan.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create_new')->name('create_new');
+            Route::get('{quis_id}/create', 'create')->name('create');
             Route::post('store', 'store')->name('store');
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}', 'update')->name('update');
