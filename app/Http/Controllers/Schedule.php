@@ -42,14 +42,14 @@ class Schedule extends Controller
                 'date' => 'required',
                 'pic1' => 'required',
                 'pic2' => 'required',
-                'surat_dinas' => 'image|mimes:jpg,png,jpeg,gif,svg|max:1024',
+                'surat_dinas' => 'image|mimes:jpg,png,jpeg,pdf|max:1024',
                 'description' => 'required',
             ]);
 
             $img = null;
             if ($request->file('surat_dinas')) {
                 $nama_gambar = time() . '_' . $request->file('surat_dinas')->getClientOriginalName();
-                $upload = $request->surat_dinas->storeAs('public/admin/img/surat_dinas', $nama_gambar);
+                $upload = $request->surat_dinas->storeAs('public/admin/upload/surat_dinas', $nama_gambar);
                 $img = Storage::url($upload);
             }
             ModelsSchedule::create([
@@ -58,6 +58,8 @@ class Schedule extends Controller
                 'pic_1' => $request->pic1,
                 'pic_2' => $request->pic2,
                 'surat_dinas' => $img,
+                'pic_1_status' => '0',
+                'pic_2_status' => '0',
                 'description' => $request->description,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -75,7 +77,8 @@ class Schedule extends Controller
             1 => 'pic_2',
             2 => 'school',
             3 => 'date',
-            4 => 'options',
+           4 => 'surat_dinas',
+            5 => 'options',
         );
         if (Auth::user()->role == '6') {
             $totalDataRecord = ModelsSchedule::where('pic_1', Auth::id())
@@ -215,11 +218,21 @@ class Schedule extends Controller
                 } else {
                     $action = "<a href='$url'><i class='fas fa-edit fa-lg'></i></a> <a style='border: none; background-color:transparent;' class='hapusData' data-id='$sch->id' data-url='$urlHapus'><i class='fas fa-trash fa-lg text-danger'></i></a>";
                 }
+
+                if ($sch->surat_dinas){
+                    $surat = '<div class="col-md-4">
+                        <a class="btn btn-info btn-sm" target="_BLANK"
+                            href="' . asset($sch->surat_dinas). '">File</a>
+                    </div>';
+                }else{
+                    $surat = 'Surat Belum Diupload';
+                }
                 $akunnestedData['no'] = $i + 1;
                 $akunnestedData['pic_1'] =  $pic1[0]->name . $statuspic1;
                 $akunnestedData['pic_2'] = $pic2[0]->name . $statuspic2;
                 $akunnestedData['school'] =  $school[0]->name;
                 $akunnestedData['date'] =  $sch->date;
+                $akunnestedData['surat_dinas'] =  $surat;
                 $akunnestedData['options'] = $action;
                 $data_val[] = $akunnestedData;
             }
@@ -251,7 +264,7 @@ class Schedule extends Controller
                 'date' => 'required',
                 'pic1' => 'required',
                 'pic2' => 'required',
-                'surat_dinas' => 'image|mimes:jpg,png,jpeg,gif,svg|max:1024',
+                'surat_dinas' => 'image|mimes:jpg,png,jpeg,pdf|max:1024',
                 'description' => 'required',
             ]);
             $img =  $data['schedule']->surat_dinas;
@@ -261,7 +274,7 @@ class Schedule extends Controller
                     unlink(public_path() . $img);
                 }
                 $nama_gambar = time() . '_' . $request->file('surat_dinas')->getClientOriginalName();
-                $upload = $request->surat_dinas->storeAs('public/admin/img/surat_dinas', $nama_gambar);
+                $upload = $request->surat_dinas->storeAs('public/admin/upload/surat_dinas', $nama_gambar);
                 $img = Storage::url($upload);
             }
 

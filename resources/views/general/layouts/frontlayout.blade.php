@@ -26,6 +26,169 @@
         .min-vh-15 {
             min-height: 15vh !important;
         }
+
+        .ringing-bell {
+            position: absolute;
+            /* left: 50%;
+            top: 50%; */
+            transition: translate(-50%, -50%);
+        }
+
+
+        .faa-ring {
+            color: red;
+        }
+
+
+        @-webkit-keyframes ring {
+            0% {
+                -webkit-transform: rotate(-15deg);
+                transform: rotate(-15deg);
+            }
+
+            2% {
+                -webkit-transform: rotate(15deg);
+                transform: rotate(15deg);
+            }
+
+            4% {
+                -webkit-transform: rotate(-18deg);
+                transform: rotate(-18deg);
+            }
+
+            6% {
+                -webkit-transform: rotate(18deg);
+                transform: rotate(18deg);
+            }
+
+            8% {
+                -webkit-transform: rotate(-22deg);
+                transform: rotate(-22deg);
+            }
+
+            10% {
+                -webkit-transform: rotate(22deg);
+                transform: rotate(22deg);
+            }
+
+            12% {
+                -webkit-transform: rotate(-18deg);
+                transform: rotate(-18deg);
+            }
+
+            14% {
+                -webkit-transform: rotate(18deg);
+                transform: rotate(18deg);
+            }
+
+            16% {
+                -webkit-transform: rotate(-12deg);
+                transform: rotate(-12deg);
+            }
+
+            18% {
+                -webkit-transform: rotate(12deg);
+                transform: rotate(12deg);
+            }
+
+            20% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes ring {
+            0% {
+                -webkit-transform: rotate(-15deg);
+                -ms-transform: rotate(-15deg);
+                transform: rotate(-15deg);
+            }
+
+            2% {
+                -webkit-transform: rotate(15deg);
+                -ms-transform: rotate(15deg);
+                transform: rotate(15deg);
+            }
+
+            4% {
+                -webkit-transform: rotate(-18deg);
+                -ms-transform: rotate(-18deg);
+                transform: rotate(-18deg);
+            }
+
+            6% {
+                -webkit-transform: rotate(18deg);
+                -ms-transform: rotate(18deg);
+                transform: rotate(18deg);
+            }
+
+            8% {
+                -webkit-transform: rotate(-22deg);
+                -ms-transform: rotate(-22deg);
+                transform: rotate(-22deg);
+            }
+
+            10% {
+                -webkit-transform: rotate(22deg);
+                -ms-transform: rotate(22deg);
+                transform: rotate(22deg);
+            }
+
+            12% {
+                -webkit-transform: rotate(-18deg);
+                -ms-transform: rotate(-18deg);
+                transform: rotate(-18deg);
+            }
+
+            14% {
+                -webkit-transform: rotate(18deg);
+                -ms-transform: rotate(18deg);
+                transform: rotate(18deg);
+            }
+
+            16% {
+                -webkit-transform: rotate(-12deg);
+                -ms-transform: rotate(-12deg);
+                transform: rotate(-12deg);
+            }
+
+            18% {
+                -webkit-transform: rotate(12deg);
+                -ms-transform: rotate(12deg);
+                transform: rotate(12deg);
+            }
+
+            20% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+        }
+
+        .faa-ring.animated,
+        .faa-ring.animated-hover:hover,
+        .faa-parent.animated-hover:hover>.faa-ring {
+            -webkit-animation: ring 3s ease infinite;
+            animation: ring 3s ease infinite;
+            transform-origin-x: 50%;
+            transform-origin-y: 0px;
+            transform-origin-z: initial;
+        }
+
+        .bg-gradient-primary {
+            background-image: linear-gradient(310deg, #60B7B7 0%, #60B7B7 100%) !important;
+            background-image: #60B7B7 !important;
+        }
+
+        .text-gradient.text-primary {
+            background-image: linear-gradient(310deg, #60B7B7 0%, #60B7B7 100%) !important;
+
+        }
+
+        .btn-primary {
+            background-image: linear-gradient(310deg, #60B7B7 0%, #60B7B7 100%) !important;
+
+        }
     </style>
     <script>
         if (window.history.replaceState) {
@@ -93,6 +256,35 @@
     <main class="main-content  mt-0">
         @yield('content')
     </main>
+
+    <!-- Modal -->
+    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div cclass="modal-dialog modal-dialog-scrollable modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tatacara Mengisi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Request::segment(1) == 'quisioner')
+        <div class="fixed-plugin">
+            <a class="fixed-plugin-button text-light position-fixed px-2 py-1 bg-primary ringing-bell faa-ring animated "
+                type="button"data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="fa fa-question-circle fa-2x py-1"> </i>
+            </a>
+
+        </div>
+    @endif
     <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
     <footer class="footer py-5">
         <div class="container">
@@ -147,6 +339,8 @@
             </div>
         </div>
     </footer>
+
+
     <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
     <!--   Core JS Files   -->
     <script src="{{ asset('admin/js/core/popper.min.js') }}"></script>
@@ -161,6 +355,12 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
+
+        $(document).ready(function() {
+            $('.btn-close').click(function() {
+                alert('ho ho ho');
+            });
+        });
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -172,6 +372,9 @@
 
 
     @yield('script_footer')
+
+
+
 </body>
 
 </html>

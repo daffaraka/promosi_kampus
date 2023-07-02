@@ -41,12 +41,29 @@ class KriteriaController extends Controller
     }
 
 
+
+
     public function update(Request $request, $id)
     {
         $kriteria = Kriteria::find($id);
         $kriteria->update($request->all());
 
         return redirect()->route('kriteria.index');
+    }
+
+    public function updatestatus(Request $request, $id)
+    {
+        $kriteria = Kriteria::find($id);
+
+        if($kriteria->status =='1'){
+            $status = '0';
+        }else{
+            $status = '1';
+        }
+
+        $kriteria->update(['status' => $status]);
+
+        return redirect()->route('kriteria.index')->with('status', 'Status Kriteria Telah dirubah');
     }
 
 

@@ -12,10 +12,6 @@
                     <div class="card-header">
                         <div class="row">
 
-                            <h3 class="card-title col-6">
-                                <a href="{{ route('schedule.add') }}" class="btn btn-success"> + Tambah Penjadwalan</a>
-
-                            </h3>
                             @if (session('status'))
                                 <div class="alert alert-success alert-dismissible">
                                     <button type="button" class="close btn  btn-close bg-danger" data-dismiss="alert"
@@ -23,6 +19,12 @@
                                     <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
                                     {{ session('status') }}
                                 </div>
+                            @endif
+                            @if (Auth::user()->role <= 5)
+                                <h3 class="card-title col-6">
+                                    <a href="{{ route('schedule.add') }}" class="btn btn-success"> + Tambah Penjadwalan</a>
+
+                                </h3>
                             @endif
                             <div class="card-tools col-6 text-end">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -43,6 +45,7 @@
                                     <th>PIC 2</th>
                                     <th>Sekolah</th>
                                     <th>Tanggal</th>
+                                    <th>Surat Dinas</th>
                                     @if (Auth::user()->role == '6')
                                         <th>Konfirmasi</th>
                                     @else
@@ -96,6 +99,8 @@
                     "data": "school"
                 }, {
                     "data": "date"
+                }, {
+                    "data": "surat_dinas"
                 }, {
                     "data": "options"
                 }],
