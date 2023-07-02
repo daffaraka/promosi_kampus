@@ -11,7 +11,8 @@ class Kriteria extends Model
 
     protected $fillable =
     [
-        'nama_kriteria'
+        'nama_kriteria',
+        'status'
     ];
 
 

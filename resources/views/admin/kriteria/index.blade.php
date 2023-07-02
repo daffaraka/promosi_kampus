@@ -17,9 +17,9 @@
 
                             </h3>
                             @if (session('status'))
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close btn btn-danger" data-dismiss="alert"
-                                        aria-hidden="true">×</button>
+                                <div class="alert alert-success alert-dismissible ">
+                                    <button type="button" class="close btn btn-danger btn-close bg-danger"
+                                        data-dismiss="alert" aria-hidden="true">×</button>
                                     <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
                                     {{ session('status') }}
                                 </div>
@@ -40,6 +40,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Kriteria</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,7 +49,17 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->nama_kriteria }}</td>
-
+                                        <td>
+                                            @if ($data->status === '1')
+                                            <a  class="btn btn-success" href="{{route('kriteria.updatestatus',$data->id)}}">
+                                              Active
+                                            </a>
+                                            @else
+                                            <a  class="btn btn-secondary"  href="{{route('kriteria.updatestatus',$data->id)}}">
+                                               Non Active
+                                            </a>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{route('kriteria.edit',$data->id)}}"><i class='fas fa-edit fa-lg'></i></a>
                                             <a style='border: none; background-color:transparent;' href="{{route('kriteria.delete',$data->id)}}">

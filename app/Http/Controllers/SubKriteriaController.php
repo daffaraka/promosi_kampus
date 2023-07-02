@@ -19,7 +19,7 @@ class SubKriteriaController extends Controller
 
     public function create()
     {
-        $data['kriteria'] = Kriteria::all();
+        $data['kriteria'] = Kriteria::where('status','1')->get();
         $data['title'] = 'Tambah Sub Kriteria';
         return view('admin.subKriteria.addsubKriteria', $data);
     }
