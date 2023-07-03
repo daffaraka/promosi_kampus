@@ -10,25 +10,19 @@
                 {{ session('status') }}
             </div>
         @endif
-        <form method="post" action="{{ route('kuisioner.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('list-pertanyaan.update',$list->id) }}" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-12 col-xl-12 col-xxl-12 col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Detail Kuisioner</h3>
+                            <h3 class="card-title">Detail List Pertanyaan</h3>
 
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="inputName">Kuisioner Untuk</label>
-                                <select name="for" class="form-control @error('for') is-invalid @enderror"
-                                    value="{{ old('for') }}" required="required">
-                                    <option value="Mahasiswa">Mahasiswa</option>
-                                    <option value="Alumni">Alumni</option>
-                                    <option value="Calon Mahasiswa">Calon Mahasiswa</option>
-
-                                </select>
+                                <label for="inputName">Jenis Quisioner</label>
+                                <input type="text" value="{{$list->jenisQuisioner->nama_jenis}}" class="form-control" readonly>
                                 @error('for')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -37,18 +31,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail">Pertanyaan</label>
-                                <input type="text" id="inputEmail" name="question"
+                                <input type="text" id="inputEmail" name="judul_pertanyaan"
                                     class="form-control @error('question') is-invalid @enderror"
-                                    placeholder="Masukkan Pertanyaan" value="{{ $quisioner->question }}" required="required"
-                                    autocomplete="question">
+                                    placeholder="Masukkan Pertanyaan" required="required" autocomplete="question"
+                                    value="{{ $list->judul_pertanyaan }}">
                                 @error('question')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                            <a href="{{ url('dashboard/admin/user') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-success float-right">Tambah Quisioner </button>
+                            <a href="{{ url('dashboard/admin/list-pertanyaan') }}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-success float-right">Update Pertanyaan </button>
                         </div>
                         <!-- /.card-body -->
 

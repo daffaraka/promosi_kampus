@@ -34,8 +34,12 @@ class JenisQuisionerController extends Controller
 
     public function store(Request $request)
     {
-        $id = $request->id_quisioner ?? Quisioner::where('question',$request->id_quisioner)->first()->id;
 
+
+        $id = Quisioner::where('question',$request->id_quisioner)->first()->id ?? $request->id_quisioner;
+
+
+        // dd($id);
         JenisQuisioner::create([
             'nama_jenis' => $request->nama_jenis,
             'id_quisioner' => $id

@@ -9,7 +9,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        <form method="post" action="{{ route('jenis-kuis.store', $quisioner->id) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('jenis-kuis.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-12 col-xl-12 col-xxl-12 col-lg-12">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="inputName">Nama Jenis Quisioner </label>
+                                <label for="inputName">Pilih Quisioner </label>
                                 <input type="text" class="form-control" name="id_quisioner" value="{{ $quisioner->question }}" readonly>
                             </div>
                             <div class="form-group">

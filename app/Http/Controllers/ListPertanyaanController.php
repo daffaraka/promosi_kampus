@@ -18,7 +18,7 @@ class ListPertanyaanController extends Controller
 
     public function create()
     {
-        $data['jenis'] = JenisQuisioner::all();
+        $data['quisioner'] = Quisioner::all();
         $data['title'] = 'Tambah List Pertanyaan';
 
         return view('admin.list-pertanyaan.addList', $data);
@@ -26,7 +26,7 @@ class ListPertanyaanController extends Controller
 
     public function create_new()
     {
-        $data['jenis'] = JenisQuisioner::all();
+        $data['quisioner'] = Quisioner::all();
         $data['title'] = 'Tambah List Pertanyaan';
 
         return view('admin.list-pertanyaan.addList', $data);
@@ -34,9 +34,10 @@ class ListPertanyaanController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         ListPertanyaan::create([
             'judul_pertanyaan' => $request->judul_pertanyaan,
-            'id_jenis' =>  $request->id_jenis,
+            'id_jenis_quisioner' =>  $request->id_jenis_quisioner,
         ]);
 
         return redirect()->route('list-pertanyaan.index');
@@ -46,16 +47,16 @@ class ListPertanyaanController extends Controller
     public function edit($id)
     {
         $data['title'] = 'Tambah Jenis Kuis';
-        $data['jenis'] = JenisQuisioner::with('quisioner')->find($id);
+        $data['list'] = ListPertanyaan::with('jenisQuisioner')->find($id);
         return view('admin.list-pertanyaan.ubahList', $data);
     }
 
     public function update(Request $request, $id)
     {
 
-        $jenis = JenisQuisioner::with('quisioner')->find($id);
+        $jenis = ListPertanyaan::find($id);
         $jenis->update([
-            'nama_jenis' => $request->nama_jenis,
+            'judul_pertanyaan' => $request->judul_pertanyaan,
         ]);
 
         return redirect()->route('list-pertanyaan.index');
@@ -63,8 +64,14 @@ class ListPertanyaanController extends Controller
     public function destroy($id)
     {
 
-        $jenis = JenisQuisioner::with('quisioner')->find($id);
+        $jenis = ListPertanyaan::find($id);
         $jenis->delete();
         return redirect()->route('list-pertanyaan.index');
+    }
+
+    public function getJenisQuisioner(Request $request)
+    {
+        $data['jenis'] = JenisQuisioner::where('id_quisioner',$request->id)->get();
+        return response()->json($data);
     }
 }

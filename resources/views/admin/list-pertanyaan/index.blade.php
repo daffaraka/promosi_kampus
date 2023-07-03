@@ -51,12 +51,10 @@
                                         <td> {{ $item->judul_pertanyaan }}</td>
                                         <td> {{ $item->jenisQuisioner->nama_jenis }}</td>
                                         <td>
-                                            <a href="{{ route('kuisioner.show', $item->id) }}">
-                                                <i class="fa solid fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('kuisioner.edit', $item->id) }}">
+
+                                            <a href="{{ route('list-pertanyaan.edit', $item->id) }}">
                                                 <i class='fas fa-edit fa-lg'></i></a>
-                                            <a href="{{ route('kuisioner.delete', $item->id) }}"
+                                            <a href="{{ route('list-pertanyaan.delete', $item->id) }}"
                                                 style='border: none; background-color:transparent;' class='hapusData'>
                                                 <i class='fas fa-trash fa-lg text-danger'></i>
                                             </a>
