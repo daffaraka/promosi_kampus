@@ -207,7 +207,8 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
         ->as('report.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::get('schedule', 'schedule', 'schedule')->name('schedule');
+            Route::any('schedule', 'schedule', 'schedule')->name('schedule');
             Route::match(['get', 'post'], 'reportschedule', 'reportschedule')->name('reportschedule');
+            Route::match(['get', 'post'], 'exportschedule', 'exportschedule')->name('exportschedule');
         });
 });

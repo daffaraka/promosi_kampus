@@ -21,4 +21,20 @@ class Schedule extends Model
         'created_at',
         'updated_at',
     ];
+    public function pic1()
+    {
+        return $this->belongsTo(User::class, 'pic_1', 'id');
+    }
+
+    // Define the relationship with User model for pic_2
+    public function pic2()
+    {
+        return $this->belongsTo(User::class, 'pic_2', 'id');
+    }
+
+    // Define the relationship with SchoolDetail model
+    public function school()
+    {
+        return $this->belongsTo(SchoolDetail::class, 'school_id', 'id');
+    }
 }
