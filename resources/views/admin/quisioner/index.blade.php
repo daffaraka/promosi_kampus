@@ -38,34 +38,17 @@
                         <table id="previewAkun" class="table table-striped table-bordered display" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Pertanyaan</th>
-                                    <th>Kriteria</th>
-                                    <th>Subkriteria</th>
-                                    <th>Alternatif</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($kuisioner as $item)
                                     <tr>
+                                        <td>{{$loop->iteration}} </td>
                                         <td> {{ $item->question }}</td>
-                                        <td>Datang Secara Langsung Ke Sekolah,
-                                            Jangkauan,
-                                            Menarik,
-                                            Informatif,
-                                            Efektivitas,
-                                        </td>
-                                        <td>Wilayah Dalam Subang,
-                                            Wilayah Luar Subang
-                                        </td>
-                                        <td>
-                                            Sosialisasi Guru BK,
-                                            Website,
-                                            Social Media,
-                                            Pameran (Expo),
-                                            Media Cetak,
-                                            Website,
-                                        </td>
+
                                         <td>
                                             <a href="{{ route('kuisioner.show', $item->id) }}">
                                                 <i class="fa solid fa-eye"></i>

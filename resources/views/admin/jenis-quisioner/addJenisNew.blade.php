@@ -20,7 +20,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="inputName">Nama Jenis Quisioner </label>
+                                <label for="inputName">Pilih Quisioner </label>
                                 <select name="id_quisioner" id="" class="form-control">
                                     @foreach ($quisioner as $item)
                                     <option value="{{$item->id}}"> {{$item->question}} </option>
