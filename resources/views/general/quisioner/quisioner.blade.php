@@ -18,55 +18,48 @@
                                 @endif
                             </div>
                             <div class="card-body">
-                                {{-- <form role="form" method="POST" action="{{ route('loginpost') }}"> --}}
-                                @csrf
-                                <label>Responden As</label>
-                                <div class="mb-3 form-group">
-                                    <select required name="as" id="as" class="form-control"
-                                        placeholder="Choose Reponden As" aria-label="As" aria-describedby="as-addon">
-                                        <option value="1">Calon Mahasiswa</option>
-                                        <option value="2">Mahasiswa</option>
-                                        <option value="3">Alumni</option>
-                                    </select>
-                                    @error('as')
-                                        {{ $errors->first('as') }}
-                                    @enderror
-                                </div>
-                                <label>Name</label>
-                                <div class="mb-3 form-group">
-                                    <input required name="Name" id="Name" type="text" class="form-control"
-                                        placeholder="Name" aria-label="Name" aria-describedby="Name-addon">
-                                    @error('Name')
-                                        {{ $errors->first('Name') }}
-                                    @enderror
-                                </div>
-                                <label>Email</label>
-                                <div class="mb-3 form-group">
-                                    <input required name="email" id="email" type="email" class="form-control"
-                                        placeholder="Email" aria-label="Email" aria-describedby="email-addon">
-                                    @error('email')
-                                        {{ $errors->first('email') }}
-                                    @enderror
-                                </div>
+                                <form role="form" method="POST" action="{{ route('general.save-session') }}">
+                                    @csrf
+                                    <label>Responden As</label>
+                                    <div class="mb-3 form-group">
+                                        <select required name="as" id="as" class="form-control"
+                                            placeholder="Choose Reponden As" aria-label="As" aria-describedby="as-addon">
+                                            <option value="1">Calon Mahasiswa</option>
+                                            <option value="2">Mahasiswa</option>
+                                            <option value="3">Alumni</option>
+                                        </select>
+                                        @error('as')
+                                            {{ $errors->first('as') }}
+                                        @enderror
+                                    </div>
+                                    <label>Name</label>
+                                    <div class="mb-3 form-group">
+                                        <input required name="Name" id="Name" type="text" class="form-control"
+                                            placeholder="Name" aria-label="Name" aria-describedby="Name-addon">
+                                        @error('Name')
+                                            {{ $errors->first('Name') }}
+                                        @enderror
+                                    </div>
+                                    <label>Email</label>
+                                    <div class="mb-3 form-group">
+                                        <input required name="email" id="email" type="email" class="form-control"
+                                            placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+                                        @error('email')
+                                            {{ $errors->first('email') }}
+                                        @enderror
+                                    </div>
 
 
-                                {{-- <div class="form-check form-switch">
+                                    {{-- <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
                                         <label class="form-check-label" for="rememberMe">Remember me</label>
                                     </div> --}}
-                                <div class="text-center">
-                                    <a type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0"
-                                        href="{{ url('/quisioner/1') }}">Next</a>
-                                </div>
-                                {{-- </form> --}}
+                                    <div class="text-center">
+                                        <input type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0" value="NEXT">
+                                    </div>
+                                </form>
                             </div>
-                            {{-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                <p class="mb-4 text-sm mx-auto">
-                                    Don't have an account?
-                                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign
-                                        up</a>
-                                </p>
-                            </div> --}}
+
                         </div>
                     </div>
                     <div class="col-md-6">

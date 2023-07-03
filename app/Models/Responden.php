@@ -13,4 +13,10 @@ class Responden extends Model
         'user',
         'as',
     ];
+
+
+    public function pertanyaanRespondens()
+    {
+        return $this->belongsToMany(PertanyaanResponden::class, 'pertanyaan_respondens', 'id', 'id_responden');
+    }
 }

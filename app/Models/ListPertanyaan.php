@@ -20,4 +20,9 @@ class ListPertanyaan extends Model
     {
         return $this->belongsTo(JenisQuisioner::class,'id_jenis_quisioner');
     }
+
+    public function pertanyaanRespondens()
+    {
+        return $this->belongsToMany(PertanyaanResponden::class, 'pertanyaan_responden', 'id_responden', 'id');
+    }
 }

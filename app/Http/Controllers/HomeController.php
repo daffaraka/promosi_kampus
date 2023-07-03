@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quisioner;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,4 +76,6 @@ class HomeController extends Controller
             return redirect()->route('profile')->with('status', 'Perubahan telah tersimpan');
         }
     }
+
+
 }
