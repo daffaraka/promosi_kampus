@@ -8,6 +8,7 @@ use App\Models\SchoolDetail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -27,14 +28,32 @@ class ReportController extends Controller
         return redirect(route('home'));
     }
 
-    public function schedule()
+    public function schedule(Request $request)
     {
 
         $data['title'] = 'Report Penjadwalan Kunjungan';
 
-        $data['schedule'] = ModelsSchedule::where('date', 'like', '%' . Carbon::now()->year . '%')->get();
-        $data['fdate'] = ModelsSchedule::where('date', 'like', '%' . Carbon::now()->year . '%')->max('date');
-        $data['udate'] = ModelsSchedule::where('date', 'like', '%' . Carbon::now()->year . '%')->min('date');
+
+        // $data['schedule'] = ModelsSchedule::where('date', 'like', '%' . Carbon::now()->year . '%')->get();
+        if ($request->isMethod('post')) {
+            $this->validate($request, [
+                'fdate' => 'required',
+                'udate' => 'required|after_or_equal:fdate',
+            ]);
+
+
+            $data['fdate'] = ModelsSchedule::where('date', 'like', '%' . Carbon::createFromFormat('Y-m-d', $_POST['fdate'])->year . '%')->min('date');
+            $data['udate'] = ModelsSchedule::where('date', 'like', '%' . Carbon::createFromFormat('Y-m-d', $_POST['udate'])->year . '%')->max('date');
+            $data['fyear'] = Carbon::createFromFormat('Y-m-d', $_POST['fdate'])->year;
+            $data['uyear'] = Carbon::createFromFormat('Y-m-d', $_POST['udate'])->year;
+        } else {
+
+            $data['fdate'] = ModelsSchedule::where('date', 'like', '%' . Carbon::now()->year . '%')->min('date');
+            $data['udate'] = ModelsSchedule::where('date', 'like', '%' . Carbon::now()->year . '%')->max('date');
+
+            $data['fyear'] = Carbon::createFromFormat('Y-m-d', $data['fdate'])->year;
+            $data['uyear'] = Carbon::createFromFormat('Y-m-d', $data['udate'])->year;
+        }
 
         return view('admin.report.schedule', $data);
     }
@@ -61,20 +80,23 @@ class ReportController extends Controller
 
         $limit_val = $request->input('length');
         $start_val = $request->input('start');
-        $order_val = 'id';
-        $dir_val = $request->input('order.0.dir');
+        $order_val = 'date';
+        $dir_val = 'DESC';
+
+        $first_date =  $request->fyear . '-01-01';
+        $until_date =  $request->uyear . '-12-12';
 
         if (empty($request->input('search.value'))) {
 
             if (Auth::user()->role == '6') {
-                $schedule_data = ModelsSchedule::where('pic_1', Auth::id())
-                    ->orwhere('pic_2', Auth::id())
+                $schedule_data = ModelsSchedule::whereBetween('date',  [$first_date, $until_date])
                     ->offset($start_val)
                     ->limit($limit_val)
                     ->orderBy($order_val, $dir_val)
                     ->get();
             } else {
-                $schedule_data = ModelsSchedule::offset($start_val)
+                $schedule_data = ModelsSchedule::whereBetween('date',  [$first_date, $until_date])
+                    ->offset($start_val)
                     ->limit($limit_val)
                     ->orderBy($order_val, $dir_val)
                     ->get();
@@ -215,5 +237,24 @@ class ReportController extends Controller
         );
 
         echo json_encode($get_json_data);
+    }
+
+    public function exportschedule(Request $request)
+    {
+        $data['title'] = 'Report Schedule';
+        $data['date'] = date('Y-m-d');
+        $first_date = $_GET['fyear'] . '-01-01';
+        $until_date = $_GET['uyear'] . '-12-12';
+        // retreive all records from db
+        $data['schedule'] = ModelsSchedule::whereBetween('date',  [$first_date, $until_date])
+            ->with('pic1', 'pic2', 'school')
+            ->orderByDesc('date')
+            ->get();
+        // share data to view
+        // view()->share('ModelsSchedule', $data);
+        $pdf = PDF::loadView('admin.report.export_schedule', $data);
+
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
     }
 }

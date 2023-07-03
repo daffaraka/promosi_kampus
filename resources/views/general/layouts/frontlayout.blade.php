@@ -258,30 +258,47 @@
     </main>
 
     <!-- Modal -->
-    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div cclass="modal-dialog modal-dialog-scrollable modal-dialog-centered ">
+    <div class="modal fade" id="tatacara" tabindex="-1" role="dialog" aria-labelledby="tatacaraLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tatacara Mengisi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="tatacaraLabel">Tata Cara Mengisi Kuisioner Metode AHP</h5>
+                    <button type="button" class="text-white btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <ol>
+                        <li> responden membaca pertanyaan pada kuisioner dengan cermat</li>
+                        <li> responden diminta untuk memberikan penilaian relatif terhadap kriteria sub kriteria dan
+                            alternatif. Dengan skala pengukuran skala 1-9 untuk menggambarkan tingkat kepentingan faktor
+                            tersebut keterangan skala:
+                            <p> 1 = kedua elemen sangat penting<br />
+                                3 = elemen yang satu sedikit lebih penting<br />
+                                5 = elemen satu lebih penting dari yang lain<br />
+                                7 = elemen yang satu sangat lebih penting dari yang lain<br />
+                                9 = elemen yang satu mutlak lebih penting dari yang lain<br />
+                                2,4,6,8 = nilai tengah antara dua pertimbangan yang berdekatan<br />
+                            </p>
+                        </li>
+                        <li> selama mengisi kuisioner, responden diminta untuk memberikan penilaian yang konsisten dan
+                            memperhatikan hubungan relatif antara faktor (kriteria, subkriteria dan alternatif) yang ada
+                        </li>
+                        <li> berikan jawaban secara jujur dan objektif</li>
+                        <li> menyerahkan kuisioner</li>
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
-
     @if (Request::segment(1) == 'quisioner')
         <div class="fixed-plugin">
-            <a class="fixed-plugin-button text-light position-fixed px-2 py-1 bg-primary ringing-bell faa-ring animated "
-                type="button"data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a type="button"class="fixed-plugin-button text-light position-fixed px-2 py-1 bg-primary ringing-bell faa-ring animated "
+                data-bs-toggle="modal" data-bs-target="#tatacara">
                 <i class="fa fa-question-circle fa-2x py-1"> </i>
             </a>
+
 
         </div>
     @endif
@@ -355,12 +372,6 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-
-        $(document).ready(function() {
-            $('.btn-close').click(function() {
-                alert('ho ho ho');
-            });
-        });
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

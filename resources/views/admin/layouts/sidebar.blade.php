@@ -32,51 +32,9 @@
                         <span class="nav-link-text ms-1">Report</span>
                     </a>
                 </li> --}}
-                <li class="nav-item">
-                    <a class="nav-link
-                {{ Request::segment(3) == 'report' ? 'active show' : '' }}
-                "
-                        id="dropdownReport" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i width="15px" height="15px" class="fa fa-list-alt text-dark"> </i>
-                        </div>
-                        <span class="nav-link-text ms-1 font-weight-bold">Report</span>
-                    </a>
-                    <ul class="dropdown-menu  dropdown-menu-end bg-gray-100 p-0 me-sm-n4 m-0 {{ Request::segment(3) == 'report' ? 'show' : '' }}"
-                        aria-labelledby="dropdownReport" style="margin: 0 1rem !important;">
-                        <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="{{ route('report.schedule') }}">
-                                <div class="d-flex py-1">
-                                    <div class="my-auto">
-                                        <i class="fa fa-list-alt me-sm-1"></i>
-
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">Schedule</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="{{ route('home') }}">
-                                <div class="d-flex py-1">
-                                    <div class="my-auto">
-                                        <i class="fa fa-list-alt me-sm-1"></i>
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">Hasil Media Promosi</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
             @endif
+
+
             @if (Auth::user()->role < 3)
                 <li class="nav-item">
                     <a class="nav-link
@@ -241,7 +199,52 @@
                     <span class="nav-link-text ms-1">Schedule</span>
                 </a>
             </li>
+            @if (Auth::user()->role < 6)
+                <li class="nav-item">
+                    <a class="nav-link
+        {{ Request::segment(3) == 'report' ? 'active show' : '' }}
+        "
+                        id="dropdownReport" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i width="15px" height="15px" class="fa fa-list-alt text-dark"> </i>
+                        </div>
+                        <span class="nav-link-text ms-1 font-weight-bold">Report</span>
+                    </a>
+                    <ul class="dropdown-menu  dropdown-menu-end bg-gray-100 p-0 me-sm-n4 m-0 {{ Request::segment(3) == 'report' ? 'show' : '' }}"
+                        aria-labelledby="dropdownReport" style="margin: 0 1rem !important;">
+                        <li class="mb-0">
+                            <a class="dropdown-item border-radius-md" href="{{ route('report.schedule') }}">
+                                <div class="d-flex py-1">
+                                    <div class="my-auto">
+                                        <i class="fa fa-list-alt me-sm-1"></i>
 
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">Schedule</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mb-0">
+                            <a class="dropdown-item border-radius-md" href="{{ route('home') }}">
+                                <div class="d-flex py-1">
+                                    <div class="my-auto">
+                                        <i class="fa fa-list-alt me-sm-1"></i>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">Hasil Media Promosi</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
         </ul>
     </div>
     <div class="sidenav-footer mx-3 ">

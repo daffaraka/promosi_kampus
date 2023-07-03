@@ -42,7 +42,7 @@ class Schedule extends Controller
                 'date' => 'required',
                 'pic1' => 'required',
                 'pic2' => 'required',
-                'surat_dinas' => 'image|mimes:jpg,png,jpeg,pdf|max:1024',
+                'surat_dinas' => 'file|mimes:jpg,png,jpeg,pdf|max:1024',
                 'description' => 'required',
             ]);
 
@@ -70,6 +70,7 @@ class Schedule extends Controller
     }
     public function dataTable(Request $request)
     {
+
         $totalFilteredRecord = $totalDataRecord = $draw_val = "";
         $columns_list = array(
             0 => 'no',
@@ -77,7 +78,7 @@ class Schedule extends Controller
             1 => 'pic_2',
             2 => 'school',
             3 => 'date',
-           4 => 'surat_dinas',
+            4 => 'surat_dinas',
             5 => 'options',
         );
         if (Auth::user()->role == '6') {
@@ -91,8 +92,8 @@ class Schedule extends Controller
 
         $limit_val = $request->input('length');
         $start_val = $request->input('start');
-        $order_val = 'id';
-        $dir_val = $request->input('order.0.dir');
+        $order_val = 'date';
+        $dir_val = 'DESC';
 
         if (empty($request->input('search.value'))) {
 
@@ -219,12 +220,12 @@ class Schedule extends Controller
                     $action = "<a href='$url'><i class='fas fa-edit fa-lg'></i></a> <a style='border: none; background-color:transparent;' class='hapusData' data-id='$sch->id' data-url='$urlHapus'><i class='fas fa-trash fa-lg text-danger'></i></a>";
                 }
 
-                if ($sch->surat_dinas){
+                if ($sch->surat_dinas) {
                     $surat = '<div class="col-md-4">
                         <a class="btn btn-info btn-sm" target="_BLANK"
-                            href="' . asset($sch->surat_dinas). '">File</a>
+                            href="' . asset($sch->surat_dinas) . '">File</a>
                     </div>';
-                }else{
+                } else {
                     $surat = 'Surat Belum Diupload';
                 }
                 $akunnestedData['no'] = $i + 1;

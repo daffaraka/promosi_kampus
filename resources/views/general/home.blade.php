@@ -45,10 +45,13 @@
                                         <input id="password" type="password" placeholder="Password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
                                             required="required" autocomplete="current-password">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-lock fa-2x"></span>
-                                            </div>
+                                        <div class="input-group-append ">
+                                            <a class="input-group-text btn btn-block text-dark bg-white m-0"
+                                                onclick="togglePasswordVisibility()">
+                                                <span class="fas fa-eye fa-2x" id="eyesee" style="display:block"></span>
+                                                <span class="fas fa-eye-slash fa-2x" id="eyesslash"
+                                                    style="display:none"></span>
+                                            </a>
                                         </div>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -108,4 +111,24 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script_footer')
+    <script>
+        var passwordInput = document.getElementById('password');
+
+        function togglePasswordVisibility() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                document.getElementById('eyesee').style.display = 'none';
+                document.getElementById('eyesslash').style.display = 'block';
+
+            } else {
+                passwordInput.type = 'password';
+                document.getElementById('eyesee').style.display = 'block';
+                document.getElementById('eyesslash').style.display = 'none';
+
+            }
+        }
+    </script>
 @endsection
