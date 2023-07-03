@@ -9,6 +9,7 @@ use App\Http\Controllers\JenisQuisionerController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\ListPertanyaanController;
 use App\Http\Controllers\QuisionerController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Schedule;
 use App\Http\Controllers\SubKriteriaController;
 use App\Models\SubKriteria;
@@ -128,6 +129,7 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');
             Route::get('edit/{id}', 'edit')->name('edit');
+            Route::get('updatestatus/{id}', 'updatestatus')->name('updatestatus');
             Route::post('update/{id}', 'update')->name('update');
             Route::get('delete/{id}', 'destroy')->name('delete');
         });
@@ -198,5 +200,14 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::match(['get', 'post'], '{id}/ubah', 'ubahschedule')->name('edit');
             Route::match(['get', 'post'], '{id}/editconfirm', 'ubahconfirmschedule')->name('editconfirm');
             Route::delete('{id}/hapus', 'hapusschedule')->name('delete');
+        });
+
+    Route::controller(ReportController::class)
+        ->prefix('report')
+        ->as('report.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('schedule', 'schedule', 'schedule')->name('schedule');
+            Route::match(['get', 'post'], 'reportschedule', 'reportschedule')->name('reportschedule');
         });
 });

@@ -23,7 +23,7 @@
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a class="nav-link {{ $title == 'Report' ? 'active' : '' }}" href="{{ route('home') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -31,6 +31,50 @@
                         </div>
                         <span class="nav-link-text ms-1">Report</span>
                     </a>
+                </li> --}}
+                <li class="nav-item">
+                    <a class="nav-link
+                {{ Request::segment(3) == 'report' ? 'active show' : '' }}
+                "
+                        id="dropdownReport" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i width="15px" height="15px" class="fa fa-list-alt text-dark"> </i>
+                        </div>
+                        <span class="nav-link-text ms-1 font-weight-bold">Report</span>
+                    </a>
+                    <ul class="dropdown-menu  dropdown-menu-end bg-gray-100 p-0 me-sm-n4 m-0 {{ Request::segment(3) == 'report' ? 'show' : '' }}"
+                        aria-labelledby="dropdownReport" style="margin: 0 1rem !important;">
+                        <li class="mb-0">
+                            <a class="dropdown-item border-radius-md" href="{{ route('report.schedule') }}">
+                                <div class="d-flex py-1">
+                                    <div class="my-auto">
+                                        <i class="fa fa-list-alt me-sm-1"></i>
+
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">Schedule</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mb-0">
+                            <a class="dropdown-item border-radius-md" href="{{ route('home') }}">
+                                <div class="d-flex py-1">
+                                    <div class="my-auto">
+                                        <i class="fa fa-list-alt me-sm-1"></i>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">Hasil Media Promosi</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endif
             @if (Auth::user()->role < 3)
@@ -47,8 +91,8 @@
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end bg-gray-100 p-0 me-sm-n4 m-0 {{ Request::segment(3) == 'user' || Request::segment(3) == 'kuisioner' ? 'show' : '' }}"
                         aria-labelledby="dropdownData" style="margin: 0 1rem !important;">
-                        {{-- <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="{{route('kriteria.index')}}">
+                        <li class="mb-0">
+                            <a class="dropdown-item border-radius-md" href="{{ route('kriteria.index') }}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-table me-sm-1"></i>
@@ -63,7 +107,7 @@
                             </a>
                         </li>
                         <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="{{route('subKriteria.index')}}">
+                            <a class="dropdown-item border-radius-md" href="{{ route('subKriteria.index') }}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-table me-sm-1"></i>
@@ -77,7 +121,7 @@
                             </a>
                         </li>
                         <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="{{route('alternatif.index')}}">
+                            <a class="dropdown-item border-radius-md" href="{{ route('alternatif.index') }}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-table me-sm-1"></i>
@@ -89,7 +133,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </li> --}}
+                        </li>
                         <li class="mb-0">
                             <a class="dropdown-item border-radius-md" href="{{ url('dashboard/admin/kuisioner') }}">
                                 <div class="d-flex py-1">
@@ -101,44 +145,6 @@
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="text-sm font-weight-normal mb-1">
                                                 <span class="font-weight-bold">Kuisioner</span>
-                                            </h6>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="{{ url('dashboard/admin/jenis-kuis') }}">
-                                <div class="d-flex py-1">
-                                    <div class="d-flex py-1">
-                                        <div class="my-auto">
-                                            <i class="fa fa-table me-sm-1"></i>
-
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="text-sm font-weight-normal mb-1">
-                                                <span class="font-weight-bold">Jenis Quisioner</span>
-                                            </h6>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="mb-0">
-                            <a class="dropdown-item border-radius-md" href="{{ url('dashboard/admin/list-pertanyaan') }}">
-                                <div class="d-flex py-1">
-                                    <div class="d-flex py-1">
-                                        <div class="my-auto">
-                                            <i class="fa fa-table me-sm-1"></i>
-
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="text-sm font-weight-normal mb-1">
-                                                <span class="font-weight-bold">List Pertanyaan</span>
                                             </h6>
 
                                         </div>
@@ -188,7 +194,7 @@
             @endif
 
             <li class="nav-item ">
-                <a class="nav-link {{ $title == 'Schedule' ? 'active' : '' }}"
+                <a class="nav-link {{ $title == 'Data Penjadwalan Kunjungan' ? 'active' : '' }} "
                     href="{{ url('dashboard/admin/schedule') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

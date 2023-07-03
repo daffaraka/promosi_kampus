@@ -10,6 +10,15 @@
                 {{ session('status') }}
             </div>
         @endif
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -95,7 +104,8 @@
                                     <label for="inputsurat">Upload Surat Dinas</label>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <input type="file" id="inputsurat" name="surat_dinas" accept="image/*"
+                                            <input type="file" id="inputsurat" name="surat_dinas"
+                                                accept="image/*,application/pdf"
                                                 class="form-control @error('surat_dinas') is-invalid @enderror"
                                                 placeholder="Upload foto profil">
                                         </div>
