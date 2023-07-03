@@ -20,9 +20,19 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="card-tools col-12 ">
                                 <label>Filter:</label>
                                 <form method="post" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="row">
                                         <div class="form-group col-3">
                                             <label for="inputFirstDate">First Date</label>
@@ -48,45 +58,52 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class=" col-6 d-flex align-content-center p-3">
+                                        <div class=" col-3 d-flex align-content-center p-3">
 
                                             <input type="submit" value="Cari"
-                                                class=" col-3 m-1 btn btn-sm btn-success float-right">
+                                                class="m-1 col-12 btn btn-sm btn-success float-right">
                                         </div>
-                                    </div>
+                                        <div class=" col-3 d-flex align-content-center p-3">
+
+                                            <a type="button"
+                                                class="m-1 col-12 btn btn-sm btn-warning d-flex align-items-center justify-content-center"
+                                                href="{{ url('dashboard/admin/report/exportschedule?fyear=' . $fyear . '&uyear=' . $uyear) }}">Export
+                                                Data</a>
+                                        </div>
                                 </form>
                             </div>
-                            <div class="card-tools col-12 text-end">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                {{-- <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        </div>
+                        <div class="card-tools col-12 text-end">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            {{-- <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
                                     <i class="fas fa-times"></i>
                                 </button> --}}
-                            </div>
                         </div>
                     </div>
-                    <div class="card-body p-0  table-responsive" style="margin: 20px">
-                        <table id="previewSchedule" class="table table-striped table-bordered   display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>PIC 1</th>
-                                    <th>PIC 2</th>
-                                    <th>Sekolah</th>
-                                    <th>Tanggal</th>
-                                    <th>Surat Dinas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
                 </div>
+                <div class="card-body p-0  table-responsive" style="margin: 20px">
+                    <table id="previewSchedule" class="table table-striped table-bordered   display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>PIC 1</th>
+                                <th>PIC 2</th>
+                                <th>Sekolah</th>
+                                <th>Tanggal</th>
+                                <th>Surat Dinas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
             </div>
         </div>
+    </div>
     </div>
     <!-- /.card -->
     @endsection @section('script_footer')
@@ -102,8 +119,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            var fdate = {{ $fdate }};
-            var udate = {{ $udate }};
+            var fyear = {{ $fyear }};
+            var uyear = {{ $uyear }};
             $('#previewSchedule').DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -113,8 +130,8 @@
                     "type": "POST",
                     "data": {
                         _token: "{{ csrf_token() }}",
-                        "fdate": fdate,
-                        "udate": udate,
+                        "fyear": fyear,
+                        "uyear": uyear,
                     }
                 },
                 "columns": [{
