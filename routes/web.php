@@ -161,6 +161,7 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => ['auth']], function
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}', 'update')->name('update');
             Route::get('delete/{id}', 'destroy')->name('delete');
+            Route::post('getJenisQuisioner', 'getJenisQuisioner')->name('getJenisQuisioner');
         });
 
     // Sub Kriteria
