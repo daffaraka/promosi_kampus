@@ -48,6 +48,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 d-flex flex-column mx-auto">
 
                         <form action="{{ route('general.saveSessionQM') }}" method="POST">
+                            <input type="hidden" name="id_list" value="{{$quisioner->id}}">
                             @csrf
                             @foreach ($quisioner->listPertanyaan as $item)
                                 <div class="card m-2">
@@ -84,7 +85,7 @@
                                                             <input type="range" value="0" class="form-range w-100"
                                                                 min="0" max="9" id="p-1" data-p="1"
                                                                 data-k="2" oninput="updateSliderValue(this)"
-                                                                onchange="resetNextSliders(this)" name="input[]" multiple>
+                                                                onchange="resetNextSliders(this)" name="inputAtas_{{$loop->iteration}}" multiple>
 
 
                                                         </td>
@@ -101,8 +102,7 @@
                                                             <input type="range" value="0" class="form-range w-100"
                                                                 min="0" max="9" id="p-2" data-p="2"
                                                                 data-k="1" oninput="updateSliderValue(this)"
-                                                                onchange="resetNextSliders(this)" name="input[]" multiple>
-
+                                                                onchange="resetNextSliders(this)" name="inputBawah_{{$loop->iteration}}" multiple>
                                                         </td>
                                                     </tr>
 
@@ -134,21 +134,37 @@
 
     @endsection @section('script_footer')
 
-    <script>
-        function updateSliderValue(slider) {
-            var value = slider.value;
-            var outputId = slider.getAttribute('data-output');
-            var output = document.getElementById(outputId);
-            output.textContent = value;
+    <script type="text/javascript">
+        function updateSliderValue(dataa) {
+            var value = $(dataa).val();
+            var output = $(dataa).parent().prev().find('.col-lg-1');
+            output.text(value);
         }
 
-        function resetNextSliders(currentSlider) {
-            var value = parseInt(currentSlider.value);
-            var nextSliders = document.querySelectorAll('.form-range[data-p="' + (value + 1) + '"]');
-            nextSliders.forEach(function(slider) {
-                slider.value = 0;
-                updateSliderValue(slider);
-            });
+        function resetNextSliders(dataa) {
+            var p = parseInt($(dataa).attr('data-p'));
+            var nextSlider = $(dataa).parent().parent().next().find('.form-range');
+            var nextOutput = nextSlider.parent().prev().find('.col-lg-1');
+
+            nextSlider.val(0);
+            nextOutput.text(0);
+
+            if (p > 1) {
+                p = p - 1;
+                var prevSlider = $(dataa).parent().parent().prev().find('.form-range');
+                var prevOutput = prevSlider.parent().prev().find('.col-lg-1');
+
+                prevSlider.val(0);
+                prevOutput.text(0);
+            }
+
+            if ($(dataa).val() == 0) {
+                nextSlider.attr('disabled', 'disabled');
+                nextOutput.text("");
+            } else {
+                nextSlider.removeAttr('disabled');
+            }
+
         }
 
         function submitForm() {
@@ -156,7 +172,7 @@
             var validInputs = [];
             inputs.forEach(function(input) {
                 var value = parseInt(input.value);
-                if (value !== 0) {
+                if (value > 0) {
                     validInputs.push(value.toString());
                 }
             });

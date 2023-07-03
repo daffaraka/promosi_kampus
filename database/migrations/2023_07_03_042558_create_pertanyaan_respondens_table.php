@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('nilai_jawaban');
 
             $table->foreign('id_responden')->references('id')->on('respondens')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('id_list')->references('id')->on('list_pertanyaan')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('id_list')->references('id')->on('list_pertanyaans')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->timestamps();
         });
