@@ -18,4 +18,8 @@ class JenisQuisioner extends Model
     public function quisioner() {
         return $this->belongsTo(Quisioner::class,'id_quisioner');
     }
+
+    public function listPertanyaan() {
+        return $this->hasMany(ListPertanyaan::class,'id_jenis_quisioner');
+    }
 }

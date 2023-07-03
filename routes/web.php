@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AlternatifController;
+use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\QuisionerController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Schedule;
 use App\Http\Controllers\SubKriteriaController;
+use App\Models\ListPertanyaan;
 use App\Models\SubKriteria;
 use Illuminate\Http\Request;
 
@@ -30,9 +32,9 @@ Route::get('quisioner', function () {
     return view('general.quisioner.quisioner');
 });
 
-Route::get('/quisioner/1', function () {
-    return view('general.quisioner.quisionerM');
-});
+Route::post('quisioner/save-session', [GeneralController::class,'saveSession'])->name('general.save-session');
+Route::get('/quisioner/1', [GeneralController::class,'quisionerM'])->name('general.quisionerM');
+Route::post('/quisioner/1', [GeneralController::class,'saveSessionQusionerM'])->name('general.saveSessionQM');
 
 
 Route::get('/quisioner/2', function (Request $request) {

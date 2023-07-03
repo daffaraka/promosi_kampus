@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama_jenis');
             $table->unsignedBigInteger('id_quisioner');
+            $table->enum('status',['aktif','non-aktif']);
             $table->timestamps();
 
             $table->foreign('id_quisioner')->references('id')->on('quisioners')->cascadeOnDelete()->cascadeOnUpdate();
