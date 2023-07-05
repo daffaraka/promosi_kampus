@@ -8,6 +8,7 @@ use App\Models\SchoolDetail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 use PDF;
 
 class ReportController extends Controller
@@ -59,6 +60,7 @@ class ReportController extends Controller
     }
     public function reportschedule(Request $request)
     {
+        $Sc = new ModelsSchedule();
 
         $totalFilteredRecord = $totalDataRecord = $draw_val = "";
         $columns_list = array(
@@ -67,7 +69,8 @@ class ReportController extends Controller
             1 => 'pic_2',
             2 => 'school',
             3 => 'date',
-            4 => 'surat_dinas',
+            4 => 'status',
+            5 => 'surat_dinas',
         );
         if (Auth::user()->role == '6') {
             $totalDataRecord = ModelsSchedule::where('pic_1', Auth::id())
@@ -224,6 +227,7 @@ class ReportController extends Controller
                 $akunnestedData['pic_2'] = $pic2[0]->name;
                 $akunnestedData['school'] =  $school[0]->name;
                 $akunnestedData['date'] =  $sch->date;
+                $akunnestedData['status'] = Blade::compileString('@badge($status === "' . $sch->status . '", "' . $sch->status . '", "' . $Sc->getStatus($sch->status) . '")');
                 $akunnestedData['surat_dinas'] =  $surat;
                 $data_val[] = $akunnestedData;
             }
@@ -241,7 +245,7 @@ class ReportController extends Controller
 
     public function exportschedule(Request $request)
     {
-        $data['title'] = 'Report Schedule';
+        $data['title'] = 'Report Penjadwalan';
         $data['date'] = date('Y-m-d');
         $first_date = $_GET['fyear'] . '-01-01';
         $until_date = $_GET['uyear'] . '-12-12';

@@ -16,11 +16,14 @@
             <th>School</th>
             <th>PIC 1</th>
             <th>PIC 2</th>
+            <th>Status</th>
             <th>Date</th>
         </tr>
         @foreach ($schedule as $s)
             @php
                 $i = 0;
+                $Sc = new App\Models\Schedule();
+                
             @endphp
             <tr>
 
@@ -29,6 +32,7 @@
                 <td>{{ $s->school->name }}</td>
                 <td>{{ $s->pic2->name }}</td>
                 <td>{{ $s->pic1->name }}</td>
+                <td>{{ $Sc->getStatus($s->status) }}</td>
                 <td>{{ $s->date }}</td>
             </tr>
         @endforeach

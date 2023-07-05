@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('pic_1_status');
             $table->string('pic_2_status');
             $table->string('surat_dinas');
+            $table->string('status')->default('0');
             $table->string('description');
             $table->timestamps();
         });

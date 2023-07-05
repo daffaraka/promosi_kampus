@@ -45,6 +45,7 @@
                                     <th>PIC 2</th>
                                     <th>Sekolah</th>
                                     <th>Tanggal</th>
+                                    <th>Status</th>
                                     <th>Surat Dinas</th>
                                     @if (Auth::user()->role == '6')
                                         <th>Konfirmasi</th>
@@ -99,6 +100,8 @@
                     "data": "school"
                 }, {
                     "data": "date"
+                }, {
+                    "data": "status"
                 }, {
                     "data": "surat_dinas"
                 }, {

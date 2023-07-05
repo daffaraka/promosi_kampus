@@ -7,6 +7,7 @@ use App\Models\SchoolDetail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Storage;
 
 class Schedule extends Controller
@@ -60,6 +61,7 @@ class Schedule extends Controller
                 'surat_dinas' => $img,
                 'pic_1_status' => '0',
                 'pic_2_status' => '0',
+                'status' => '0',
                 'description' => $request->description,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -70,6 +72,8 @@ class Schedule extends Controller
     }
     public function dataTable(Request $request)
     {
+        $schedule = new ModelsSchedule();
+
 
         $totalFilteredRecord = $totalDataRecord = $draw_val = "";
         $columns_list = array(
@@ -79,7 +83,8 @@ class Schedule extends Controller
             2 => 'school',
             3 => 'date',
             4 => 'surat_dinas',
-            5 => 'options',
+            5 => 'status',
+            6 => 'options',
         );
         if (Auth::user()->role == '6') {
             $totalDataRecord = ModelsSchedule::where('pic_1', Auth::id())
@@ -220,6 +225,8 @@ class Schedule extends Controller
                     $action = "<a href='$url'><i class='fas fa-edit fa-lg'></i></a> <a style='border: none; background-color:transparent;' class='hapusData' data-id='$sch->id' data-url='$urlHapus'><i class='fas fa-trash fa-lg text-danger'></i></a>";
                 }
 
+
+
                 if ($sch->surat_dinas) {
                     $surat = '<div class="col-md-4">
                         <a class="btn btn-info btn-sm" target="_BLANK"
@@ -228,11 +235,15 @@ class Schedule extends Controller
                 } else {
                     $surat = 'Surat Belum Diupload';
                 }
+
+
+
                 $akunnestedData['no'] = $i + 1;
                 $akunnestedData['pic_1'] =  $pic1[0]->name . $statuspic1;
                 $akunnestedData['pic_2'] = $pic2[0]->name . $statuspic2;
                 $akunnestedData['school'] =  $school[0]->name;
                 $akunnestedData['date'] =  $sch->date;
+                $akunnestedData['status'] =  Blade::compileString('@badge($status === "' . $sch->status . '", "' . $sch->status . '", "' . $schedule->getStatus($sch->status) . '")');
                 $akunnestedData['surat_dinas'] =  $surat;
                 $akunnestedData['options'] = $action;
                 $data_val[] = $akunnestedData;
@@ -286,6 +297,7 @@ class Schedule extends Controller
                 'pic_1' => $request->pic1,
                 'pic_2' => $request->pic2,
                 'surat_dinas' => $img,
+                'status' => '0',
                 'description' => $request->description,
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);

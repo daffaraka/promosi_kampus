@@ -92,6 +92,7 @@
                                 <th>PIC 2</th>
                                 <th>Sekolah</th>
                                 <th>Tanggal</th>
+                                <th>Status</th>
                                 <th>Surat Dinas</th>
                             </tr>
                         </thead>
@@ -144,6 +145,8 @@
                     "data": "school"
                 }, {
                     "data": "date"
+                }, {
+                    "data": "status"
                 }, {
                     "data": "surat_dinas"
                 }],

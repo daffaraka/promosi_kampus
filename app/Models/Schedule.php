@@ -18,6 +18,7 @@ class Schedule extends Model
         'pic_2_status',
         'surat_dinas',
         'description',
+        'status',
         'created_at',
         'updated_at',
     ];
@@ -36,5 +37,14 @@ class Schedule extends Model
     public function school()
     {
         return $this->belongsTo(SchoolDetail::class, 'school_id', 'id');
+    }
+
+    public function getStatus($value)
+    {
+        if ($value === '1') {
+            return 'Terlaksana';
+        } else {
+            return 'Belum Terlaksana';
+        }
     }
 }
